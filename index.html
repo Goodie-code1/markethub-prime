@@ -16,172 +16,192 @@
 </head>
 <body class="bg-[#0b1329] text-slate-200 selection:bg-blue-500 selection:text-white overflow-x-hidden antialiased">
 
-    <!-- ULTRA-PREMIUM BLURRED HERO BACKGROUNDS -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none overflow-hidden z-0">
-        <div class="absolute -top-[30%] left-[10%] w-[450px] h-[450px] bg-blue-600/20 rounded-full blur-[140px]"></div>
-        <div class="absolute top-[10%] right-[5%] w-[400px] h-[400px] bg-indigo-500/15 rounded-full blur-[120px]"></div>
-    </div>
+    <!-- MAIN WEBSITE WRAPPER (We can hide this completely on successful login) -->
+    <div id="mainWebsiteContent">
+        <!-- ULTRA-PREMIUM BLURRED HERO BACKGROUNDS -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none overflow-hidden z-0">
+            <div class="absolute -top-[30%] left-[10%] w-[450px] h-[450px] bg-blue-600/20 rounded-full blur-[140px]"></div>
+            <div class="absolute top-[10%] right-[5%] w-[400px] h-[400px] bg-indigo-500/15 rounded-full blur-[120px]"></div>
+        </div>
 
-    <!-- GLASSMORPHIC NAVIGATION BAR -->
-    <nav class="bg-[#0b1329]/70 backdrop-blur-xl border-b border-slate-800/60 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                Market<span class="text-white">Hub.</span>
+        <!-- GLASSMORPHIC NAVIGATION BAR -->
+        <nav class="bg-[#0b1329]/70 backdrop-blur-xl border-b border-slate-800/60 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                <div class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                    Market<span class="text-white">Hub.</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+                    <a href="#discover" class="hover:text-white transition-colors duration-200">Discover</a>
+                    <a href="#premium-features" class="hover:text-white transition-colors duration-200">Features</a>
+                    <a href="#protocol" class="hover:text-white transition-colors duration-200">Trade Protocol</a>
+                </div>
+
+                <div class="flex items-center space-x-5">
+                    <button onclick="openModal('Sign up to view premium verified collections')" class="text-sm font-semibold text-slate-300 hover:text-white transition cursor-pointer">Sign In</button>
+                    <a href="https://wa.me/2349011251729?text=Hello%20Goodie,%20I%20would%20like%20to%20submit%20and%20post%20a%20new%20advertisement%20on%20MarketHub." target="_blank" class="relative group overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-bold px-6 h-11 rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center">
+                        <span class="relative z-10">+ Post An Advertisement</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- IMMERSIVE HERO & SEARCH CONSOLE -->
+        <header class="relative max-w-7xl mx-auto px-6 pt-20 pb-24 text-center z-10">
+            <div class="inline-flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 px-4 py-1.5 rounded-full text-xs font-semibold text-blue-300 mb-8 backdrop-blur-md">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                Next-Generation Peer-to-Peer Network
             </div>
             
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-                <a href="#discover" class="hover:text-white transition-colors duration-200">Discover</a>
-                <a href="#premium-features" class="hover:text-white transition-colors duration-200">Features</a>
-                <a href="#protocol" class="hover:text-white transition-colors duration-200">Trade Protocol</a>
-            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.1]">
+                Buy and Sell Assets with <br>
+                <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Absolute Clarity.</span>
+            </h1>
+            <p class="text-slate-400 mt-8 text-lg md:text-xl max-w-2xl mx-auto font-normal leading-relaxed">
+                Stop scrolling through cluttered list sites. Experience Nigeria's most beautiful visual marketplace designed for modern buyers and sellers.
+            </p>
 
-            <div class="flex items-center space-x-5">
-                <button onclick="openModal('Sign up to view premium verified collections')" class="text-sm font-semibold text-slate-300 hover:text-white transition cursor-pointer">Sign In</button>
-                <a href="https://wa.me/2349011251729?text=Hello%20Goodie,%20I%20would%20like%20to%20submit%20and%20post%20a%20new%20advertisement%20on%20MarketHub." target="_blank" class="relative group overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-bold px-6 h-11 rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center">
-                    <span class="relative z-10">+ Post An Advertisement</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- IMMERSIVE HERO & SEARCH CONSOLE -->
-    <header class="relative max-w-7xl mx-auto px-6 pt-20 pb-24 text-center z-10">
-        <div class="inline-flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 px-4 py-1.5 rounded-full text-xs font-semibold text-blue-300 mb-8 backdrop-blur-md">
-            <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-            </span>
-            Next-Generation Peer-to-Peer Network
-        </div>
-        
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.1]">
-            Buy and Sell Assets with <br>
-            <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Absolute Clarity.</span>
-        </h1>
-        <p class="text-slate-400 mt-8 text-lg md:text-xl max-w-2xl mx-auto font-normal leading-relaxed">
-            Stop scrolling through cluttered list sites. Experience Nigeria's most beautiful visual marketplace designed for modern buyers and sellers.
-        </p>
-
-        <!-- SEARCH CONSOLE -->
-        <div class="max-w-3xl mx-auto bg-slate-900/90 border border-slate-800 p-3 rounded-2xl shadow-2xl shadow-black/50 backdrop-blur-md mt-12 flex flex-col sm:flex-row gap-3">
-            <div class="flex-1 flex items-center gap-3 px-3">
-                <span class="text-slate-500 text-xl">🔍</span>
-                <input type="text" onfocus="openModal('Account registration required to query ecosystem')" placeholder="Search verified electronics, pristine vehicles, high fashion..." class="w-full bg-transparent py-3 text-white placeholder-slate-500 focus:outline-none text-base">
-            </div>
-            <button onclick="openModal('Account registration required to query ecosystem')" class="bg-blue-500 hover:bg-blue-600 active:scale-[0.98] text-white font-bold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/15 cursor-pointer">
-                Search Ecosystem
-            </button>
-        </div>
-    </header>
-
-    <!-- TEASER ADS GALLERY -->
-    <main id="discover" class="max-w-7xl mx-auto px-6 py-16 relative z-10">
-        <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-16">
-            <div>
-                <h2 class="text-3xl font-bold text-white tracking-tight">Curated Showcases</h2>
-                <p class="text-slate-400 text-sm mt-2">Discover premium verified inventory uploaded within your immediate perimeter.</p>
-            </div>
-            <!-- CATEGORY GATES -->
-            <div class="flex flex-wrap gap-3">
-                <button onclick="openModal('Sign up to unlock and sort your customized feed')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-slate-700/40 transition cursor-pointer">All Items</button>
-                <button onclick="openModal('Sign up to unlock the electronics marketplace')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Electronics</button>
-                <button onclick="openModal('Sign up to unlock verified automotive inventory')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Vehicles</button>
-                <button onclick="openModal('Sign up to view designer fashion drops')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Fashion</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- DISPLAY PREVIEWS -->
-            <div class="md:col-span-2 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border border-slate-800 rounded-3xl overflow-hidden group hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between h-[520px]">
-                <div class="h-[65%] bg-slate-950 relative border-b border-slate-800/50 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80" alt="MacBook Pro" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
-                    <span class="absolute top-5 left-5 bg-blue-500 text-white font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-lg backdrop-blur-md">PREVIEW ITEM</span>
+            <!-- SEARCH CONSOLE -->
+            <div class="max-w-3xl mx-auto bg-slate-900/90 border border-slate-800 p-3 rounded-2xl shadow-2xl shadow-black/50 backdrop-blur-md mt-12 flex flex-col sm:flex-row gap-3">
+                <div class="flex-1 flex items-center gap-3 px-3">
+                    <span class="text-slate-500 text-xl">🔍</span>
+                    <input type="text" onfocus="openModal('Account registration required to query the marketplace')" placeholder="Search verified electronics, pristine vehicles, high fashion..." class="w-full bg-transparent py-3 text-white placeholder-slate-500 focus:outline-none text-base">
                 </div>
-                <div class="p-8 flex-1 flex flex-col justify-between bg-slate-900/40">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Apple MacBook Pro 16" (M3 Max)</h3>
-                            <p class="text-slate-400 text-sm mt-1">Pristine condition, international warranty included.</p>
+                <button onclick="openModal('Account registration required to query the marketplace')" class="bg-blue-500 hover:bg-blue-600 active:scale-[0.98] text-white font-bold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/15 cursor-pointer">
+                    Search Marketplace
+                </button>
+            </div>
+        </header>
+
+        <!-- TEASER ADS GALLERY -->
+        <main id="discover" class="max-w-7xl mx-auto px-6 py-16 relative z-10">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-16">
+                <div>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Curated Showcases</h2>
+                    <p class="text-slate-400 text-sm mt-2">Discover premium verified inventory uploaded within your immediate perimeter.</p>
+                </div>
+                <!-- CATEGORY GATES -->
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="openModal('Sign up to unlock and sort your customized feed')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-slate-700/40 transition cursor-pointer">All Items</button>
+                    <button onclick="openModal('Sign up to unlock the electronics marketplace')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Electronics</button>
+                    <button onclick="openModal('Sign up to unlock verified automotive inventory')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Vehicles</button>
+                    <button onclick="openModal('Sign up to view designer fashion drops')" class="bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Fashion</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- DISPLAY PREVIEWS -->
+                <div class="md:col-span-2 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border border-slate-800 rounded-3xl overflow-hidden group hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between h-[520px]">
+                    <div class="h-[65%] bg-slate-950 relative border-b border-slate-800/50 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80" alt="MacBook Pro" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                        <span class="absolute top-5 left-5 bg-blue-500 text-white font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-lg backdrop-blur-md">PREVIEW ITEM</span>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col justify-between bg-slate-900/40">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Apple MacBook Pro 16" (M3 Max)</h3>
+                                <p class="text-slate-400 text-sm mt-1">Pristine condition, international warranty included.</p>
+                            </div>
+                            <p class="text-2xl font-black text-emerald-400 font-mono">₦2,850,000</p>
                         </div>
-                        <p class="text-2xl font-black text-emerald-400 font-mono">₦2,850,000</p>
+                        <div class="flex items-center justify-between pt-6 border-t border-slate-800/80">
+                            <span class="text-slate-400 text-xs">Merchant: Aura Tech Nigeria</span>
+                            <button onclick="openModal('Sign up to negotiate straight via verified routing')" class="bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs px-5 py-3 rounded-xl transition cursor-pointer">Negotiate Purchase</button>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-between pt-6 border-t border-slate-800/80">
-                        <span class="text-slate-400 text-xs">Merchant: Aura Tech Nigeria</span>
-                        <button onclick="openModal('Sign up to negotiate straight via client-side routing')" class="bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs px-5 py-3 rounded-xl transition cursor-pointer">Negotiate Purchase</button>
+                </div>
+
+                <div class="bg-slate-900/60 border border-slate-800 rounded-3xl overflow-hidden group hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between h-[520px]">
+                    <div class="h-[55%] bg-slate-950 relative border-b border-slate-800/50 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" alt="Air Jordan" class="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700">
+                        <span class="absolute top-5 left-5 bg-slate-800 text-slate-300 font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-lg border border-slate-700">PREVIEW</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Air Jordan 1 High OG</h3>
+                            <p class="text-xl font-black text-emerald-400 mt-2 font-mono">₦145,000</p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                            <span class="text-slate-400 text-xs">Merchant: SolePlug</span>
+                            <button onclick="openModal('Sign up to configure messaging profiles')" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl border border-slate-700 transition cursor-pointer">Contact</button>
+                        </div>
                     </div>
                 </div>
             </div>
+        </main>
 
-            <div class="bg-slate-900/60 border border-slate-800 rounded-3xl overflow-hidden group hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between h-[520px]">
-                <div class="h-[55%] bg-slate-950 relative border-b border-slate-800/50 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" alt="Air Jordan" class="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700">
-                    <span class="absolute top-5 left-5 bg-slate-800 text-slate-300 font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-lg border border-slate-700">PREVIEW</span>
+        <!-- PREMIUM FEATURES SHOWCASE SECTION -->
+        <section id="premium-features" class="max-w-7xl mx-auto px-6 py-24 border-t border-slate-900 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Engineered for Seamless Scale</h2>
+                <p class="text-slate-400 mt-4 text-base max-w-xl mx-auto">Discover the foundational modules that make MarketHub the chosen engine for visual commerce.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-900/40 border border-slate-800/80 p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl font-bold mb-6">⚡</div>
+                    <h4 class="text-lg font-bold text-white">Direct P2P Routing</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Skip third-party delays. Connect instantly with verified merchants through automated chat templates.</p>
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">Air Jordan 1 High OG</h3>
-                        <p class="text-xl font-black text-emerald-400 mt-2 font-mono">₦145,000</p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
-                        <span class="text-slate-400 text-xs">Merchant: SolePlug</span>
-                        <button onclick="openModal('Sign up to configure messaging profiles')" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl border border-slate-700 transition cursor-pointer">Contact</button>
-                    </div>
+                <div class="bg-slate-900/40 border border-slate-800/80 p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl font-bold mb-6">🎯</div>
+                    <h4 class="text-lg font-bold text-white">High-Fidelity UI</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">An immersive glassmorphic interface mapped out with structured bento grids to let inventory command attention.</p>
+                </div>
+                <div class="bg-slate-900/40 border border-slate-800/80 p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-xl font-bold mb-6">🛠️</div>
+                    <h4 class="text-lg font-bold text-white">Granular Architecture</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Built utilizing highly scannable structural code architecture, ensuring ultra-low performance overhead.</p>
                 </div>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <!-- PREMIUM FEATURES SHOWCASE SECTION -->
-    <section id="premium-features" class="max-w-7xl mx-auto px-6 py-24 border-t border-slate-900 relative z-10">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Engineered for Seamless Scale</h2>
-            <p class="text-slate-400 mt-4 text-base max-w-xl mx-auto">Discover the foundational modules that make MarketHub the chosen engine for visual commerce.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-slate-900/40 border border-slate-800/80 p-8 rounded-2xl">
-                <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl font-bold mb-6">⚡</div>
-                <h4 class="text-lg font-bold text-white">Direct P2P Routing</h4>
-                <p class="text-slate-400 text-sm mt-2 leading-relaxed">Skip third-party delays. Connect instantly with verified merchants through automated chat templates.</p>
+        <!-- PROFESSIONAL REWRITTEN TRADE PROTOCOL -->
+        <section id="protocol" class="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-slate-900">
+            <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border border-slate-800/80 p-12 rounded-3xl relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500/5 rounded-full blur-2xl"></div>
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-4 py-1.5 rounded-full">Safety &amp; Compliance Protocol</span>
+                    <h3 class="text-2xl font-bold text-white mt-4">Verified P2P Trading Safety</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        MarketHub operates as an open, high-fidelity discovery network. To maintain absolute safety, we encourage all participants to conduct thorough inspection cycles and verify product specifications prior to finalizing any exchange. Engage professionally, trade secure.
+                    </p>
+                </div>
+                <div class="bg-slate-800/40 border border-slate-700/40 p-6 rounded-2xl backdrop-blur-md min-w-[240px] text-center">
+                    <p class="text-3xl font-black text-white">100%</p>
+                    <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Direct Peer Connectivity</p>
+                </div>
             </div>
-            <div class="bg-slate-900/40 border border-slate-800/80 p-8 rounded-2xl">
-                <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl font-bold mb-6">🎯</div>
-                <h4 class="text-lg font-bold text-white">High-Fidelity UI</h4>
-                <p class="text-slate-400 text-sm mt-2 leading-relaxed">An immersive glassmorphic interface mapped out with structured bento grids to let inventory command attention.</p>
-            </div>
-            <div class="bg-slate-900/40 border border-slate-800/80 p-8 rounded-2xl">
-                <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-xl font-bold mb-6">🛠️</div>
-                <h4 class="text-lg font-bold text-white">Granular Architecture</h4>
-                <p class="text-slate-400 text-sm mt-2 leading-relaxed">Built utilizing highly scannable structural code architecture, ensuring ultra-low performance overhead.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PROFESSIONAL REWRITTEN TRADE PROTOCOL -->
-    <section id="protocol" class="max-w-7xl mx-auto px-6 py-20 relative z-10 border-t border-slate-900">
-        <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border border-slate-800/80 p-12 rounded-3xl relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500/5 rounded-full blur-2xl"></div>
-            <div class="max-w-2xl">
-                <span class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 px-4 py-1.5 rounded-full">Safety &amp; Compliance Protocol</span>
-                <h3 class="text-2xl font-bold text-white mt-4">Verified P2P Trading Safety</h3>
-                <p class="text-slate-400 text-sm mt-2 leading-relaxed">
-                    MarketHub operates as an open, high-fidelity discovery network. To maintain absolute safety, we encourage all participants to conduct thorough inspection cycles and verify product specifications prior to finalizing any exchange. Engage professionally, trade secure.
-                </p>
+        <!-- FOOTER -->
+        <footer class="bg-slate-950 border-t border-slate-900 py-12 text-sm text-slate-500 relative z-10">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6">
+                <div class="text-lg font-black text-white">Market<span class="text-blue-400">Hub.</span></div>
+                <p>© 2026 MarketHub Marketplace. Engineered by Goodie for ultimate peer-to-peer visual scale.</p>
             </div>
-            <div class="bg-slate-800/40 border border-slate-700/40 p-6 rounded-2xl backdrop-blur-md min-w-[240px] text-center">
-                <p class="text-3xl font-black text-white">100%</p>
-                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Direct Peer Connectivity</p>
-            </div>
-        </div>
-    </section>
+        </footer>
+    </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 border-t border-slate-900 py-12 text-sm text-slate-500 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6">
-            <div class="text-lg font-black text-white">Market<span class="text-blue-400">Hub.</span></div>
-            <p>© 2026 MarketHub Ecosystem. Engineered by Goodie for ultimate peer-to-peer visual scale.</p>
+    <!-- CLEAN DEDICATED FULL-PAGE "COMING SOON" STATE -->
+    <div id="comingSoonView" class="hidden min-h-screen w-full bg-[#0b1329] flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+        <div class="absolute w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="max-w-xl bg-slate-900/60 border border-slate-800/80 p-12 rounded-3xl backdrop-blur-xl shadow-2xl relative z-10">
+            <div class="w-16 h-16 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-3xl flex items-center justify-center rounded-2xl mx-auto mb-6 shadow-lg">⚡</div>
+            <h2 class="text-3xl font-extrabold text-white tracking-tight">Marketplace Under Maintenance</h2>
+            <p class="text-slate-400 text-base mt-4 leading-relaxed">
+                Thank you for authenticating! There are currently no active listings verified on this platform node. Our administration team is currently auditing incoming inventory submissions.
+            </p>
+            <div class="mt-8 pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://wa.me/2349011251729?text=Hello%20Goodie,%20I%20want%20to%20list%20an%20item!" target="_blank" class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition">Submit a New Listing</a>
+                <button onclick="logoutAndReset()" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm px-6 py-3 rounded-xl border border-slate-700 transition cursor-pointer">Return Home</button>
+            </div>
         </div>
-    </footer>
+    </div>
 
     <!-- INTERACTIVE AUTHENTICATION MODAL -->
     <div id="authModal" class="fixed inset-0 bg-black/75 backdrop-blur-lg hidden items-center justify-center z-50 p-4 transition-all duration-300 opacity-0">
@@ -193,22 +213,23 @@
                     <span id="authIcon">🔑</span>
                 </div>
                 <h3 id="authTitle" class="text-xl font-bold text-white">Create Account</h3>
-                <p id="modalMessage" class="text-slate-400 text-xs mt-1.5 leading-relaxed">Sign up with your credentials to unlock full systemic access.</p>
+                <p id="modalMessage" class="text-slate-400 text-xs mt-1.5 leading-relaxed">Sign up with your credentials to unlock full marketplace access.</p>
             </div>
             
-            <!-- SIMULATED SUCCESS REDIRECT LOGIC -->
+            <!-- FORM VALIDATION ROUTING -->
             <form onsubmit="handleAuthSuccess(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1.5">Console ID / Email</label>
-                    <input type="email" required placeholder="name@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
+                    <label class="block text-xs font-semibold text-slate-400 mb-1.5">Email Address</label>
+                    <!-- Added type="email" and required to enforce standard format validation -->
+                    <input type="email" id="userEmail" required placeholder="name@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1.5">Access Key / Password</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1.5">Password</label>
                     <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
                 </div>
                 <div id="confirmPasswordGroup">
-                    <label class="block text-xs font-semibold text-slate-400 mb-1.5">Confirm Access Key</label>
-                    <input type="password" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
+                    <label class="block text-xs font-semibold text-slate-400 mb-1.5">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 transition">
                 </div>
 
                 <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold text-sm py-4 rounded-xl shadow-lg shadow-blue-500/15 transition mt-2 cursor-pointer">
@@ -218,7 +239,7 @@
 
             <div class="text-center mt-6 pt-5 border-t border-slate-800/60 text-xs">
                 <p id="toggleFooterText" class="text-slate-400">
-                    Already have an access profile? 
+                    Already have an account? 
                     <button onclick="toggleAuthMode('login')" class="text-blue-400 font-semibold ml-1 hover:underline cursor-pointer">Log In</button>
                 </p>
             </div>
@@ -265,52 +286,50 @@
             if (targetMode === 'login') {
                 operationalMode = "login";
                 title.textContent = "Welcome Back";
-                message.textContent = "Authenticate with your saved security details.";
+                message.textContent = "Authenticate with your saved account details.";
                 icon.textContent = "🔒";
                 confirmField.classList.add('hidden');
-                submitBtn.textContent = "Initialize Session Log In";
-                footerText.innerHTML = `New to the ecosystem? <button onclick="toggleAuthMode('signup')" class="text-blue-400 font-semibold ml-1 hover:underline cursor-pointer">Sign Up</button>`;
+                submitBtn.textContent = "Log In to Account";
+                footerText.innerHTML = `New to the marketplace? <button onclick="toggleAuthMode('signup')" class="text-blue-400 font-semibold ml-1 hover:underline cursor-pointer">Sign Up</button>`;
             } else {
                 operationalMode = "signup";
                 title.textContent = "Create Account";
-                message.textContent = "Sign up with your credentials to unlock full systemic access.";
+                message.textContent = "Sign up with your credentials to unlock full marketplace access.";
                 icon.textContent = "🔑";
                 confirmField.classList.remove('hidden');
                 submitBtn.textContent = "Complete Registration";
-                footerText.innerHTML = `Already have an access profile? <button onclick="toggleAuthMode('login')" class="text-blue-400 font-semibold ml-1 hover:underline cursor-pointer">Log In</button>`;
+                footerText.innerHTML = `Already have an account? <button onclick="toggleAuthMode('login')" class="text-blue-400 font-semibold ml-1 hover:underline cursor-pointer">Log In</button>`;
             }
         }
 
         // REDIRECT / AUTHENTICATION EVENT HANDLER
         function handleAuthSuccess(e) {
             e.preventDefault();
+            
+            const emailInput = document.getElementById('userEmail').value;
+            
+            // Basic frontend check: verify email contains an '@' and a '.'
+            if (!emailInput.includes('@') || !emailInput.includes('.')) {
+                alert('Please enter a valid, structured email address.');
+                return;
+            }
+
             closeModal();
             
-            // Rewrite discover area to show an elegantly structured "No Listings Empty State" for categories
-            const mainFeed = document.getElementById('discover');
-            mainFeed.innerHTML = `
-                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-16">
-                    <div>
-                        <h2 class="text-3xl font-bold text-white tracking-tight">Curated Showcases</h2>
-                        <p class="text-slate-400 text-sm mt-2">Discover premium verified inventory uploaded within your immediate perimeter.</p>
-                    </div>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="location.reload()" class="bg-slate-900/40 text-slate-400 font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">All Items</button>
-                        <button class="bg-[#1e293b] text-white font-semibold text-xs px-4 py-2.5 rounded-lg border border-slate-600 cursor-pointer">Electronics</button>
-                        <button onclick="alert('No vehicle listings active on this demo node.')" class="bg-slate-900/40 text-slate-400 font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Vehicles</button>
-                        <button onclick="alert('No fashion listings active on this demo node.')" class="bg-slate-900/40 text-slate-400 font-medium text-xs px-4 py-2.5 rounded-lg border border-transparent transition cursor-pointer">Fashion</button>
-                    </div>
-                </div>
-                
-                <!-- COGNITIVE EMPTY STATE CARD -->
-                <div class="w-full bg-slate-900/40 border border-dashed border-slate-800 rounded-3xl py-24 px-6 text-center max-w-3xl mx-auto flex flex-col items-center justify-center">
-                    <div class="w-16 h-16 bg-slate-950 border border-slate-800 text-slate-400 text-2xl flex items-center justify-center rounded-2xl mb-6 shadow-xl">📁</div>
-                    <h4 class="text-xl font-bold text-white tracking-tight">Ecosystem Index Pending Verification</h4>
-                    <p class="text-slate-400 text-sm mt-2 max-w-md mx-auto leading-relaxed">
-                        There are currently no active electronic assets deployed on this specific node. Administration is auditing incoming submissions. Check back shortly or submit your own listing above!
-                    </p>
-                </div>
-            `;
+            // Hide the entire main website, open the clean, dedicated "Coming Soon" view state
+            document.getElementById('mainWebsiteContent').classList.add('hidden');
+            
+            const comingSoon = document.getElementById('comingSoonView');
+            comingSoon.classList.remove('hidden');
+            comingSoon.classList.add('flex');
+        }
+
+        function logoutAndReset() {
+            // Smoothly reload the app layout back to the home view
+            document.getElementById('comingSoonView').classList.remove('flex');
+            document.getElementById('comingSoonView').classList.add('hidden');
+            document.getElementById('mainWebsiteContent').classList.remove('hidden');
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
