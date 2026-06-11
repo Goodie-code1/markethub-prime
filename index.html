@@ -19,125 +19,105 @@
         .light-mode input { background-color: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
         .light-mode input::placeholder { color: #94a3b8; }
         .light-mode .text-title { color: #0f172a; }
+        .light-mode .bg-table-row { background-color: #f1f5f9; border-color: #e2e8f0; }
     </style>
 </head>
 <body class="bg-[#0b1329] text-slate-200 selection:bg-blue-500 selection:text-white overflow-x-hidden antialiased">
 
-    <!-- THE LANDING PAGE VIEW -->
-    <div id="mainWebsiteContent" class="block">
-        <!-- BACKGROUND GLURS -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none overflow-hidden z-0">
-            <div class="absolute -top-[30%] left-[10%] w-[450px] h-[450px] bg-blue-600/20 rounded-full blur-[140px]"></div>
-        </div>
-
-        <!-- LANDING NAV -->
-        <nav class="bg-[#0b1329]/70 backdrop-blur-xl border-b border-slate-800/60 sticky top-0 z-40 transition-colors">
-            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-                <div class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                    Market<span class="text-title text-white">Hub.</span>
-                </div>
-                <div class="flex items-center space-x-5">
-                    <button onclick="openModal('Sign in to open your premium dashboard')" class="text-sm font-semibold text-slate-300 hover:text-white transition cursor-pointer">Sign In</button>
-                    <button onclick="openModal('Create an account to access the marketplace platform')" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-bold px-6 h-11 rounded-xl shadow-lg transition transform hover:scale-[1.02]">
-                        Get Started
-                    </button>
-                </div>
-            </div>
-        </nav>
-
-        <!-- HERO SECTION -->
-        <header class="relative max-w-7xl mx-auto px-6 pt-20 pb-24 text-center z-10">
-            <div class="inline-flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 px-4 py-1.5 rounded-full text-xs font-semibold text-blue-300 mb-8 backdrop-blur-md">
-                Simple. Direct. Safe.
-            </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-title text-white max-w-4xl mx-auto leading-[1.1]">
-                Buy and Sell Assets with <br>
-                <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Absolute Clarity.</span>
-            </h1>
-            <p class="text-muted text-slate-400 mt-8 text-lg md:text-xl max-w-2xl mx-auto font-normal">
-                Stop scrolling through cluttered list sites. Experience Nigeria's most beautiful visual marketplace designed for modern buyers and sellers.
-            </p>
-            <div class="max-w-md mx-auto mt-10">
-                <button onclick="openModal('Please quickly register your profile to unlock the platform switches.')" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-xl transition shadow-lg cursor-pointer">
-                    Enter MarketHub Dashboard ➔
-                </button>
-            </div>
-        </header>
-    </div>
-
-    <!-- CLEAN DEDICATED APP PLATFORM (REVEALED AFTER LOGIN) -->
-    <div id="premiumDashboardView" class="hidden min-h-screen flex-col">
-        <!-- DASHBOARD NAV BAR -->
+    <!-- MASTER WRAPPER -->
+    <div class="min-h-screen flex flex-col justify-between">
+        
+        <!-- 🌎 GLOBAL NAVIGATION BAR (ALWAYS VISIBLE) -->
         <nav class="bg-[#0b1329]/70 backdrop-blur-xl border-b border-slate-800/60 sticky top-0 z-40 px-6 transition-colors">
             <div class="max-w-7xl mx-auto h-20 flex justify-between items-center">
                 <div class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                     Market<span class="text-title text-white">Hub.</span>
                 </div>
 
-                <!-- 🔄 HIGH-CLASS BUYER / SELLER VIEW TOGGLE -->
+                <!-- 🔄 HIGH-CLASS INSTANT SWITCHER -->
                 <div class="bg-slate-900/90 border border-slate-800 p-1 rounded-xl flex items-center bg-card">
                     <button id="buyerToggleBtn" onclick="switchPlatformMode('buyer')" class="px-5 py-2 text-xs font-bold rounded-lg bg-blue-500 text-white transition-all cursor-pointer">
                         🛒 Buyer Platform
                     </button>
-                    <button id="sellerToggleBtn" onclick="switchPlatformMode('seller')" class="px-5 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer">
+                    <button id="sellerToggleBtn" onclick="switchPlatformMode('seller')" class="px-5 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-slate-300 transition-all cursor-pointer">
                         💼 Seller Hub
                     </button>
                 </div>
 
+                <!-- CONTROLS -->
                 <div class="flex items-center space-x-4">
-                    <!-- 🌗 LIGHT / DARK MODE TOGGLE BUTTON -->
-                    <button onclick="toggleLightDarkMode()" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/50 bg-card text-lg hover:bg-slate-800 transition cursor-pointer" title="Toggle Theme">
+                    <!-- 🌗 THEME TOGGLE -->
+                    <button onclick="toggleLightDarkMode()" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/50 bg-card text-lg hover:bg-slate-800 transition cursor-pointer shadow-sm" title="Toggle Theme">
                         <span id="themeIcon">🌙</span>
                     </button>
-                    <!-- ⚙️ SETTINGS BUTTON -->
-                    <button onclick="toggleSettingsDrawer(true)" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/50 bg-card text-lg hover:bg-slate-800 transition cursor-pointer" title="Open Settings">
+                    <!-- ⚙️ SETTINGS -->
+                    <button onclick="toggleSettingsDrawer(true)" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/50 bg-card text-lg hover:bg-slate-800 transition cursor-pointer shadow-sm" title="Open Settings">
                         ⚙️
+                    </button>
+                    <!-- AUTHENTICATION BUTTON -->
+                    <button id="globalAuthBtn" onclick="openModal()" class="hidden sm:inline-flex bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md hover:opacity-90 transition">
+                        Sign In
                     </button>
                 </div>
             </div>
         </nav>
 
-        <!-- SUB-HEADER ALERT -->
-        <div class="bg-blue-500/10 border-b border-blue-500/20 text-center py-2.5 text-xs font-medium text-blue-400">
-            ✨ Node System Live • Authenticated Session Verified
+        <!-- BACKGROUND BLUR ACCENTS -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none overflow-hidden z-0">
+            <div class="absolute -top-[30%] left-[10%] w-[450px] h-[450px] bg-blue-600/15 rounded-full blur-[140px]"></div>
         </div>
 
-        <!-- DYNAMIC MAIN FEED CONTAINER -->
-        <main class="max-w-7xl mx-auto px-6 py-10 flex-1 w-full">
+        <!-- ====== DYNAMIC PLATFORM VIEWS ====== -->
+        <div class="flex-1 w-full z-10">
             
-            <!-- ====== BUYER INTERFACE MODULE ====== -->
-            <div id="buyerModule" class="block space-y-10">
-                <!-- SEARCH HUB INPUT -->
-                <div class="max-w-3xl mx-auto bg-slate-900/90 border border-slate-800 p-3 rounded-2xl shadow-xl backdrop-blur-md bg-card flex gap-3">
-                    <div class="flex-1 flex items-center gap-3 px-3">
-                        <span class="text-slate-500 text-xl">🔍</span>
-                        <input type="text" placeholder="Search premium items instantly..." class="w-full bg-transparent py-3 text-white focus:outline-none text-base">
+            <!-- 🛒 MODULE A: BUYER PLATFORM -->
+            <div id="buyerModule" class="block">
+                <!-- HERO MARKETING INTRO -->
+                <header class="relative max-w-7xl mx-auto px-6 pt-16 pb-12 text-center">
+                    <div class="inline-flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 px-4 py-1.5 rounded-full text-xs font-semibold text-blue-300 mb-6 backdrop-blur-md">
+                        Simple. Direct. Safe.
                     </div>
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-xl transition cursor-pointer">
-                        Search MarketHub
-                    </button>
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-title text-white max-w-4xl mx-auto leading-[1.15]">
+                        Buy and Sell Assets with <br>
+                        <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Absolute Clarity.</span>
+                    </h1>
+                </header>
+
+                <!-- SEARCH SYSTEM -->
+                <div class="max-w-3xl mx-auto px-6 mb-12">
+                    <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl shadow-xl backdrop-blur-md bg-card flex flex-col sm:flex-row gap-3">
+                        <div class="flex-1 flex items-center gap-3 px-3">
+                            <span class="text-slate-500 text-xl">🔍</span>
+                            <input type="text" placeholder="Search laptops, phones, fashion items..." class="w-full bg-transparent py-3 text-white focus:outline-none text-base">
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-blue-500/10">
+                            Search Market
+                        </button>
+                    </div>
                 </div>
 
-                <!-- BENTO LISTINGS FEED -->
-                <div>
-                    <h3 class="text-xl font-bold text-title text-white mb-6">Verified Live Listings</h3>
+                <!-- GRID PRODUCT CONTENT -->
+                <main class="max-w-7xl mx-auto px-6 pb-16">
+                    <h3 class="text-xl font-bold text-title text-white mb-6">Recent Marketplace Uploads</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-slate-900/40 border border-slate-800 rounded-3xl overflow-hidden bg-card flex flex-col justify-between h-[460px]">
+                        <!-- Card 1 -->
+                        <div class="bg-slate-900/40 border border-slate-800 rounded-3xl overflow-hidden bg-card flex flex-col justify-between h-[460px] hover:border-slate-700/50 transition">
                             <div class="h-[60%] bg-slate-950 relative overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
                             </div>
                             <div class="p-6 flex-1 flex flex-col justify-between">
                                 <div class="flex justify-between items-start">
-                                    <h4 class="font-bold text-lg text-title">MacBook Pro 16"</h4>
+                                    <h4 class="font-bold text-lg text-title">Apple MacBook Pro 16"</h4>
                                     <p class="font-black text-emerald-400 font-mono">₦2,850,000</p>
                                 </div>
                                 <div class="flex justify-between items-center pt-4 border-t border-slate-800/60">
                                     <span class="text-xs text-muted text-slate-400">Seller: Aura Tech</span>
-                                    <button class="bg-white text-slate-950 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Chat</button>
+                                    <button onclick="openModal('Please quickly sign in to contact this seller.')" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer shadow-sm">Contact Seller</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-slate-900/40 border border-slate-800 rounded-3xl overflow-hidden bg-card flex flex-col justify-between h-[460px]">
+                        <!-- Card 2 -->
+                        <div class="bg-slate-900/40 border border-slate-800 rounded-3xl overflow-hidden bg-card flex flex-col justify-between h-[460px] hover:border-slate-700/50 transition">
                             <div class="h-[60%] bg-slate-950 relative overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
                             </div>
@@ -148,41 +128,38 @@
                                 </div>
                                 <div class="flex justify-between items-center pt-4 border-t border-slate-800/60">
                                     <span class="text-xs text-muted text-slate-400">Seller: SolePlug</span>
-                                    <button class="bg-white text-slate-950 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Chat</button>
+                                    <button onclick="openModal('Please quickly sign in to contact this seller.')" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer shadow-sm">Contact Seller</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </main>
             </div>
 
-            <!-- ====== SELLER INTERFACE MODULE ====== -->
-            <div id="sellerModule" class="hidden space-y-8 animate-fadeIn">
-                <!-- METRIC CARDS OVERVIEW -->
+            <!-- 💼 MODULE B: SELLER HUB -->
+            <div id="sellerModule" class="hidden max-w-7xl mx-auto px-6 py-12 space-y-8">
+                <!-- STAT CARDS -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl bg-card">
-                        <p class="text-xs font-semibold text-muted text-slate-400 uppercase tracking-wider">Total Product Views</p>
+                        <p class="text-xs font-semibold text-muted text-slate-400 uppercase tracking-wider">Product Views</p>
                         <p class="text-3xl font-black text-title text-white mt-2 font-mono">1,420</p>
-                        <span class="text-[10px] text-emerald-400 font-medium">📈 +12% this week</span>
                     </div>
                     <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl bg-card">
-                        <p class="text-xs font-semibold text-muted text-slate-400 uppercase tracking-wider">WhatsApp Leads Generated</p>
+                        <p class="text-xs font-semibold text-muted text-slate-400 uppercase tracking-wider">Inquiries Generated</p>
                         <p class="text-3xl font-black text-title text-white mt-2 font-mono">84</p>
-                        <span class="text-[10px] text-blue-400 font-medium">⚡ High conversion rate</span>
                     </div>
                     <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl bg-card">
                         <p class="text-xs font-semibold text-muted text-slate-400 uppercase tracking-wider">Active Inventory Ads</p>
                         <p class="text-3xl font-black text-title text-white mt-2 font-mono">2 / 5</p>
-                        <span class="text-[10px] text-purple-400 font-medium">Standard Vendor Account</span>
                     </div>
                 </div>
 
-                <!-- MANAGEMENT & SUBMISSION ARCHITECTURE -->
+                <!-- CONTROLS MANAGEMENT -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- ADD NEW AD FORM -->
+                    <!-- CREATE LISTING FORM -->
                     <div class="md:col-span-1 bg-slate-900/40 border border-slate-800 p-6 rounded-2xl bg-card">
                         <h4 class="font-bold text-lg text-title text-white mb-4">Create New Advertisement</h4>
-                        <form class="space-y-4" onsubmit="alert('Listing submitted for admin verification approval.'); this.reset(); return false;">
+                        <form class="space-y-4" onsubmit="openModal('Please sign in to securely save and publish your advertisement listings.'); return false;">
                             <div>
                                 <label class="block text-xs font-semibold text-muted text-slate-400 mb-1">Product Title</label>
                                 <input type="text" required placeholder="e.g. iPhone 15 Pro Max" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm">
@@ -192,108 +169,104 @@
                                 <input type="number" required placeholder="Amount in Naira" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-muted text-slate-400 mb-1">Upload Product Image URL</label>
-                                <input type="url" placeholder="https://images.unsplash.com/..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+                                <label class="block text-xs font-semibold text-muted text-slate-400 mb-1">Product Image Link</label>
+                                <input type="url" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm">
                             </div>
-                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs py-3 rounded-xl transition cursor-pointer">
+                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs py-3.5 rounded-xl transition cursor-pointer shadow-md">
                                 Launch Product Ad
                             </button>
                         </form>
                     </div>
 
-                    <!-- CURRENT ACTIVE MANAGEMENT TABLE -->
+                    <!-- RECENT LISTS TABLE -->
                     <div class="md:col-span-2 bg-slate-900/40 border border-slate-800 p-6 rounded-2xl bg-card flex flex-col justify-between">
                         <div>
                             <h4 class="font-bold text-lg text-title text-white mb-4">Your Active Inventory</h4>
                             <div class="space-y-3">
-                                <div class="flex justify-between items-center p-4 bg-slate-950/40 border border-slate-800/60 rounded-xl bg-card">
+                                <div class="flex justify-between items-center p-4 bg-slate-950/40 border border-slate-800/60 rounded-xl bg-table-row">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-slate-800 rounded-lg overflow-hidden"></div>
+                                        <div class="w-10 h-10 bg-slate-800 rounded-lg"></div>
                                         <div>
                                             <p class="text-sm font-bold text-title">Apple MacBook Pro 16"</p>
                                             <p class="text-[10px] text-emerald-400 font-mono">₦2,850,000</p>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full">LIVE</span>
+                                    <span class="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full">ACTIVE</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-xs text-muted text-slate-500 text-center mt-6">Need a larger inventory cap? Contact Goodie for professional vendor permissions.</p>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
 
-        <!-- SECURITY INTEGRATION FOOTER -->
-        <section class="max-w-7xl mx-auto px-6 pb-12 w-full">
-            <div class="bg-slate-900/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 bg-card">
+        <!-- ⚠️ PLATFORM HELPDESK FILE DRAWER -->
+        <section class="max-w-7xl mx-auto px-6 pb-8 w-full z-10">
+            <div class="bg-slate-900/40 border border-slate-800/80 p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 bg-card shadow-sm">
                 <div>
                     <h4 class="text-sm font-bold text-title text-white">Platform Complaints or Issue Logging</h4>
                     <p class="text-muted text-slate-400 text-xs mt-0.5">Report unusual user behaviors or account malfunctions instantly.</p>
                 </div>
-                <a href="mailto:goodyinbusiness@gmail.com?subject=MarketHub%20Platform%20Issue%20Report" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-rose-400 text-xs font-bold px-5 py-2.5 rounded-xl border border-slate-700 text-center bg-card">
+                <a href="mailto:goodyinbusiness@gmail.com?subject=MarketHub%20Platform%20Issue%20Report" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-rose-400 text-xs font-bold px-5 py-3 rounded-xl border border-slate-700 text-center bg-card transition">
                     ⚠️ Report Issue
                 </a>
             </div>
         </section>
-    </div>
 
-    <!-- ⚙️ COMPACT SLIDE-OUT SETTINGS DRAWER -->
-    <div id="settingsDrawer" class="fixed inset-y-0 right-0 w-80 bg-slate-900 border-l border-slate-800 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
-        <div>
-            <div class="flex justify-between items-center pb-5 border-b border-slate-800">
-                <h3 class="font-bold text-lg text-white text-title">Account Settings</h3>
-                <button onclick="toggleSettingsDrawer(false)" class="text-slate-500 hover:text-white text-xl cursor-pointer">&times;</button>
+        <!-- ⚙️ COMPACT SLIDE-OUT SETTINGS PANEL -->
+        <div id="settingsDrawer" class="fixed inset-y-0 right-0 w-80 bg-slate-900 border-l border-slate-800 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center pb-5 border-b border-slate-800">
+                    <h3 class="font-bold text-lg text-white text-title">Settings</h3>
+                    <button onclick="toggleSettingsDrawer(false)" class="text-slate-500 hover:text-white text-xl cursor-pointer">&times;</button>
+                </div>
+                <div class="mt-6 space-y-5">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 text-muted uppercase tracking-wider">Account Status</p>
+                        <p id="profileDisplayEmail" class="text-sm text-amber-400 font-mono mt-1">Guest Session</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-xs font-bold text-slate-400 text-muted uppercase tracking-wider">Preferences</p>
+                        <label class="flex items-center justify-between text-xs text-slate-300 text-title p-2 rounded-lg hover:bg-slate-950/40">
+                            <span>Email Notifications</span>
+                            <input type="checkbox" checked class="accent-blue-500">
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="mt-6 space-y-5">
-                <div>
-                    <p class="text-xs font-bold text-slate-400 text-muted uppercase tracking-wider">Account Profile Node</p>
-                    <p id="profileDisplayEmail" class="text-sm text-blue-400 font-mono mt-1">user@domain.com</p>
+            <button onclick="openModal()" class="w-full bg-blue-500 text-white text-xs font-bold py-3.5 rounded-xl shadow-md transition">
+                Sign In to Save Preferences
+            </button>
+        </div>
+
+        <!-- AUTHENTICATION REGISTRATION MODAL -->
+        <div id="authModal" class="fixed inset-0 bg-black/75 backdrop-blur-lg hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
+            <div class="bg-slate-900 border border-slate-800 w-full max-w-md p-8 rounded-3xl relative transform scale-95 transition-transform duration-300">
+                <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-500 hover:text-white text-2xl cursor-pointer">&times;</button>
+                <div class="text-center mb-6">
+                    <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-lg">🔑</div>
+                    <h3 class="text-xl font-bold text-white">Sign In</h3>
+                    <p id="modalMessage" class="text-slate-400 text-xs mt-1">Log into your account credentials to fully sync listings.</p>
                 </div>
-                <div class="space-y-2">
-                    <p class="text-xs font-bold text-slate-400 text-muted uppercase tracking-wider">Preferences</p>
-                    <label class="flex items-center justify-between text-xs text-slate-300 text-title p-2 rounded-lg hover:bg-slate-950/40">
-                        <span>Email Notifications</span>
-                        <input type="checkbox" checked class="accent-blue-500">
-                    </label>
-                    <label class="flex items-center justify-between text-xs text-slate-300 text-title p-2 rounded-lg hover:bg-slate-950/40">
-                        <span>Instant WhatsApp Sync</span>
-                        <input type="checkbox" class="accent-blue-500">
-                    </label>
-                </div>
+                <form onsubmit="handleAuthSuccess(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Email Address</label>
+                        <input type="email" id="userEmail" required placeholder="name@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Password</label>
+                        <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-sm py-4 rounded-xl transition cursor-pointer shadow-md">
+                        Sign In
+                    </button>
+                </form>
             </div>
         </div>
-        <button onclick="logoutSession()" class="w-full bg-slate-950 border border-slate-800 text-rose-400 hover:bg-rose-950/20 text-xs font-bold py-3 rounded-xl transition cursor-pointer">
-            🚪 Disconnect Session
-        </button>
+
     </div>
 
-    <!-- AUTHENTICATION REGISTRATION MODAL -->
-    <div id="authModal" class="fixed inset-0 bg-black/75 backdrop-blur-lg hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md p-8 rounded-3xl relative transform scale-95 transition-transform duration-300">
-            <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-500 hover:text-white text-2xl cursor-pointer">&times;</button>
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-lg">🔑</div>
-                <h3 class="text-xl font-bold text-white">Access Verification</h3>
-                <p id="modalMessage" class="text-slate-400 text-xs mt-1">Please log in or register your email address node to unlock dashboard operations.</p>
-            </div>
-            <form onsubmit="handleAuthSuccess(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Email Node Address</label>
-                    <input type="email" id="userEmail" required placeholder="name@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Secret Password</label>
-                    <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-sm py-4 rounded-xl transition cursor-pointer">
-                    Authenticate Session
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- CORE SYSTEM RE-ENGINEERED SCRIPTS -->
+    <!-- UTILITY SCRIPTS -->
     <script>
         let currentTheme = "dark";
 
@@ -315,11 +288,9 @@
             e.preventDefault();
             const emailInput = document.getElementById('userEmail').value;
             document.getElementById('profileDisplayEmail').textContent = emailInput;
-
+            document.getElementById('profileDisplayEmail').className = "text-sm text-emerald-400 font-mono mt-1";
+            document.getElementById('globalAuthBtn').classList.add('hidden');
             closeModal();
-            // Core Transformation Step
-            document.getElementById('mainWebsiteContent').classList.replace('block', 'hidden');
-            document.getElementById('premiumDashboardView').classList.replace('hidden', 'flex');
         }
 
         function switchPlatformMode(targetMode) {
@@ -330,12 +301,12 @@
 
             if (targetMode === 'buyer') {
                 buyerBtn.className = "px-5 py-2 text-xs font-bold rounded-lg bg-blue-500 text-white transition-all cursor-pointer";
-                sellerBtn.className = "px-5 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer";
+                sellerBtn.className = "px-5 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-slate-300 transition-all cursor-pointer";
                 buyerMod.classList.replace('hidden', 'block');
                 sellerMod.classList.replace('block', 'hidden');
             } else {
                 sellerBtn.className = "px-5 py-2 text-xs font-bold rounded-lg bg-blue-500 text-white transition-all cursor-pointer";
-                buyerBtn.className = "px-5 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer";
+                buyerBtn.className = "px-5 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-slate-300 transition-all cursor-pointer";
                 buyerMod.classList.replace('block', 'hidden');
                 sellerMod.classList.replace('hidden', 'block');
             }
@@ -362,13 +333,6 @@
             } else {
                 drawer.classList.add('translate-x-full');
             }
-        }
-
-        function logoutSession() {
-            toggleSettingsDrawer(false);
-            document.getElementById('premiumDashboardView').classList.replace('flex', 'hidden');
-            document.getElementById('mainWebsiteContent').classList.replace('hidden', 'block');
-            window.scrollTo(0,0);
         }
     </script>
 </body>
