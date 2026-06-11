@@ -12,14 +12,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        
+        /* ☀️ LIGHT MODE THEMES AND OVERRIDES */
         .light-mode { background-color: #f8fafc; color: #0f172a; }
         .light-mode .bg-card { background-color: #ffffff; border-color: #e2e8f0; color: #0f172a; }
         .light-mode .text-muted { color: #64748b; }
         .light-mode nav { background-color: rgba(255, 255, 255, 0.8); border-color: #e2e8f0; }
-        .light-mode input { background-color: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
+        .light-mode input, .light-mode textarea { background-color: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
         .light-mode input::placeholder { color: #94a3b8; }
         .light-mode .text-title { color: #0f172a; }
         .light-mode .bg-table-row { background-color: #f1f5f9; border-color: #e2e8f0; }
+        
+        /* Pill Theme Switcher adjustments in Light Mode */
+        .light-mode .theme-pill-bg { background-color: #e2e8f0; border-color: #cbd5e1; }
+        .light-mode .theme-active-bubble { background-color: #ffffff; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1); }
+        .light-mode .theme-icon-dim { color: #94a3b8; }
+        .light-mode .theme-icon-active { color: #3b82f6; }
+        
+        /* Settings button adjust in Light Mode */
+        .light-mode .settings-action-btn { background-color: #ffffff; border-color: #cbd5e1; color: #475569; }
+        .light-mode .settings-action-btn:hover { background-color: #f1f5f9; color: #0f172a; }
+        
+        /* Drawer Slide Panel in Light Mode */
+        .light-mode .settings-panel { background-color: #ffffff; border-color: #e2e8f0; color: #0f172a; box-shadow: -10px 0 30px rgba(15, 23, 42, 0.05); }
+        .light-mode .settings-border-t { border-color: #e2e8f0; }
+        .light-mode .settings-hover-row:hover { background-color: #f1f5f9; }
     </style>
 </head>
 <body class="bg-[#0b1329] text-slate-200 selection:bg-blue-500 selection:text-white overflow-x-hidden antialiased">
@@ -44,16 +61,33 @@
                     </button>
                 </div>
 
-                <!-- CONTROLS -->
-                <div class="flex items-center space-x-4">
-                    <!-- 🌗 THEME TOGGLE -->
-                    <button onclick="toggleLightDarkMode()" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/50 bg-card text-lg hover:bg-slate-800 transition cursor-pointer shadow-sm" title="Toggle Theme">
-                        <span id="themeIcon">🌙</span>
+                <!-- CONTROLS CONTAINER -->
+                <div class="flex items-center space-x-3">
+                    
+                    <!-- 🌗 NEW CAPSULE PILL LIGHT/DARK TOGGLE BUTTON -->
+                    <div onclick="toggleLightDarkMode()" class="theme-pill-bg bg-slate-950 border border-slate-800/80 p-1 rounded-full flex items-center relative w-20 h-10 cursor-pointer select-none transition-all" title="Switch Interface Mood">
+                        <!-- Sliding Indicator Background Layer -->
+                        <div id="themeIndicatorBubble" class="theme-active-bubble absolute top-1 left-1 w-8 h-7.5 bg-blue-500/20 border border-blue-500/30 rounded-full transition-all duration-300 ease-out"></div>
+                        
+                        <!-- Icons Area Inside Toggle -->
+                        <div class="w-1/2 flex justify-center items-center z-10 transition-colors duration-200">
+                            <!-- Moon Vector Icon -->
+                            <svg id="moonIconSvg" class="w-4 h-4 text-blue-400 theme-icon-active" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        </div>
+                        <div class="w-1/2 flex justify-center items-center z-10 transition-colors duration-200">
+                            <!-- Sun Vector Icon -->
+                            <svg id="sunIconSvg" class="w-4 h-4 text-slate-500 theme-icon-dim" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                        </div>
+                    </div>
+
+                    <!-- ⚙️ NEW SLICK VECTOR SETTINGS ICON BUTTON -->
+                    <button onclick="toggleSettingsDrawer(true)" class="settings-action-btn w-10 h-10 rounded-full border border-slate-800/80 bg-slate-900/40 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 group cursor-pointer shadow-sm bg-card" title="Open Settings Dashboard">
+                        <svg class="w-5 h-5 transition-transform duration-500 ease-out group-hover:rotate-90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
                     </button>
-                    <!-- ⚙️ SETTINGS -->
-                    <button onclick="toggleSettingsDrawer(true)" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/50 bg-card text-lg hover:bg-slate-800 transition cursor-pointer shadow-sm" title="Open Settings">
-                        ⚙️
-                    </button>
+
                     <!-- AUTHENTICATION BUTTON -->
                     <button id="globalAuthBtn" onclick="openModal('Create a secure profile to sync your custom listings across devices.')" class="hidden sm:inline-flex bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md hover:opacity-90 transition">
                         Sign In
@@ -110,7 +144,7 @@
                                     <h4 class="font-bold text-lg text-title">Apple MacBook Pro 16"</h4>
                                     <p class="font-black text-emerald-400 font-mono">₦2,850,000</p>
                                 </div>
-                                <div class="flex justify-between items-center pt-4 border-t border-slate-800/60">
+                                <div class="flex justify-between items-center pt-4 border-t border-slate-800/60 settings-border-t">
                                     <span class="text-xs text-muted text-slate-400">Seller: Aura Tech</span>
                                     <a href="https://wa.me/2348000000000?text=Hello%20Aura%20Tech,%20I%20am%20interested%20in%20the%20MacBook%20Pro" target="_blank" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-xl cursor-pointer shadow-sm text-center">Contact Seller</a>
                                 </div>
@@ -126,7 +160,7 @@
                                     <h4 class="font-bold text-lg text-title">Air Jordan 1 High</h4>
                                     <p class="font-black text-emerald-400 font-mono">₦145,000</p>
                                 </div>
-                                <div class="flex justify-between items-center pt-4 border-t border-slate-800/60">
+                                <div class="flex justify-between items-center pt-4 border-t border-slate-800/60 settings-border-t">
                                     <span class="text-xs text-muted text-slate-400">Seller: SolePlug</span>
                                     <a href="https://wa.me/2348000000000?text=Hello%20SolePlug,%20I%20am%20interested%20in%20the%20Air%20Jordan" target="_blank" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-xl cursor-pointer shadow-sm text-center">Contact Seller</a>
                                 </div>
@@ -156,7 +190,7 @@
 
                 <!-- CONTROLS MANAGEMENT -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- CREATE LISTING FORM (With Push for Advertisement Trigger) -->
+                    <!-- CREATE LISTING FORM -->
                     <div class="md:col-span-1 bg-slate-900/40 border border-slate-800 p-6 rounded-2xl bg-card shadow-sm">
                         <h4 class="font-bold text-lg text-title text-white mb-4">Create New Advertisement</h4>
                         <form class="space-y-4" onsubmit="openModal('To publish this item on the live feed, please launch it as an active advertisement package below.'); return false;">
@@ -214,9 +248,9 @@
         </section>
 
         <!-- ⚙️ COMPACT SLIDE-OUT SETTINGS PANEL -->
-        <div id="settingsDrawer" class="fixed inset-y-0 right-0 w-80 bg-slate-900 border-l border-slate-800 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div id="settingsDrawer" class="settings-panel fixed inset-y-0 right-0 w-80 bg-slate-900 border-l border-slate-800 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
             <div>
-                <div class="flex justify-between items-center pb-5 border-b border-slate-800">
+                <div class="flex justify-between items-center pb-5 border-b border-slate-800 settings-border-t">
                     <h3 class="font-bold text-lg text-white text-title">Settings</h3>
                     <button onclick="toggleSettingsDrawer(false)" class="text-slate-500 hover:text-white text-xl cursor-pointer">&times;</button>
                 </div>
@@ -227,19 +261,19 @@
                     </div>
                     <div class="space-y-2">
                         <p class="text-xs font-bold text-slate-400 text-muted uppercase tracking-wider">Preferences</p>
-                        <label class="flex items-center justify-between text-xs text-slate-300 text-title p-2 rounded-lg hover:bg-slate-950/40">
+                        <label class="flex items-center justify-between text-xs text-slate-300 text-title p-2 rounded-lg settings-hover-row cursor-pointer">
                             <span>Email Notifications</span>
                             <input type="checkbox" checked class="accent-blue-500">
                         </label>
                     </div>
                 </div>
             </div>
-            <button onclick="openModal('Sign in to configure account configurations')" class="w-full bg-blue-500 text-white text-xs font-bold py-3.5 rounded-xl shadow-md transition cursor-pointer">
+            <button onclick="openModal('Sign in to configure account configurations')" class="w-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-3.5 rounded-xl shadow-md transition cursor-pointer">
                 Sign In to Save Preferences
             </button>
         </div>
 
-        <!-- AUTHENTICATION ADVERTISEMENT package MODAL -->
+        <!-- AUTHENTICATION MODAL -->
         <div id="authModal" class="fixed inset-0 bg-black/75 backdrop-blur-lg hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
             <div class="bg-slate-900 border border-slate-800 w-full max-w-md p-8 rounded-3xl relative transform scale-95 transition-transform duration-300">
                 <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-500 hover:text-white text-2xl cursor-pointer">&times;</button>
@@ -315,14 +349,31 @@
 
         function toggleLightDarkMode() {
             const body = document.body;
-            const icon = document.getElementById('themeIcon');
+            const bubble = document.getElementById('themeIndicatorBubble');
+            const moonIcon = document.getElementById('moonIconSvg');
+            const sunIcon = document.getElementById('sunIconSvg');
+            
             if (currentTheme === "dark") {
                 body.classList.add('light-mode');
-                icon.textContent = "☀️";
+                
+                // Move indicator slide bubble to the right (Sun)
+                bubble.style.transform = "translateX(36px)";
+                
+                // Toggle active style tracking classes
+                moonIcon.setAttribute('class', 'w-4 h-4 text-slate-400 theme-icon-dim');
+                sunIcon.setAttribute('class', 'w-4 h-4 text-blue-500 theme-icon-active');
+                
                 currentTheme = "light";
             } else {
                 body.classList.remove('light-mode');
-                icon.textContent = "🌙";
+                
+                // Snap indicator slide bubble back to left (Moon)
+                bubble.style.transform = "translateX(0px)";
+                
+                // Restore dark layout tracking classes
+                moonIcon.setAttribute('class', 'w-4 h-4 text-blue-400 theme-icon-active');
+                sunIcon.setAttribute('class', 'w-4 h-4 text-slate-500 theme-icon-dim');
+                
                 currentTheme = "dark";
             }
         }
