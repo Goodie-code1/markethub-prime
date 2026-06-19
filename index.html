@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketHub — Premium Global Commerce</title>
+    <title>MarketHub — Simple Local & Global Shopping</title>
     <!-- Tailwind CSS Engine -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Premium Google Fonts -->
@@ -21,9 +21,6 @@
         .light-mode input, .light-mode textarea, .light-mode select { background-color: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
         .light-mode input::placeholder { color: #94a3b8; }
         .light-mode .text-title { color: #0f172a; }
-        .light-mode .category-tab.active { background-color: #2563eb; color: #ffffff; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
-        .light-mode .category-tab:not(.active) { background-color: #f1f5f9; color: #475569; border-color: #cbd5e1; }
-        .light-mode .category-tab:not(.active):hover { background-color: #e2e8f0; color: #0f172a; }
         
         /* Pill Theme Switcher adjustments in Light Mode */
         .light-mode .theme-pill-bg { background-color: #e2e8f0; border-color: #cbd5e1; }
@@ -38,13 +35,35 @@
         /* Drawer Slide Panels */
         .light-mode .settings-panel { background-color: #ffffff; border-color: #e2e8f0; color: #0f172a; box-shadow: -10px 0 30px rgba(15, 23, 42, 0.05); }
         .light-mode .settings-border-t { border-color: #e2e8f0; }
-        .light-mode .settings-hover-row:hover { background-color: #f1f5f9; }
     </style>
 </head>
 <body class="bg-[#090d1a] text-slate-200 selection:bg-blue-600 selection:text-white overflow-x-hidden antialiased">
 
-    <!-- MASTER WRAPPER -->
-    <div class="min-h-screen flex flex-col justify-between">
+    <!-- 🌟 WELCOME FRONT PAGE (SPLASH SCREEN) -->
+    <div id="splashScreen" class="fixed inset-0 bg-[#090d1a] z-50 flex flex-col justify-center items-center px-6 transition-all duration-700 ease-in-out">
+        <!-- Blur Glow Background Effects -->
+        <div class="absolute w-[350px] h-[350px] bg-blue-600/10 rounded-full blur-[120px] top-1/3 left-1/2 -translate-x-1/2 pointer-events-none"></div>
+        
+        <div class="text-center space-y-6 z-10 max-w-md animate-fadeIn">
+            <h1 class="text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                MarketHub.
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base font-medium tracking-wide">
+                Simple Local & Global Shopping
+            </p>
+            <div class="pt-4">
+                <button onclick="enterMarketplace()" class="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 hover:scale-105 cursor-pointer flex items-center gap-3 mx-auto">
+                    Enter Shop
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌎 MAIN APPLICATION CONTAINER (Hidden until user clicks Enter) -->
+    <div id="mainAppContent" class="opacity-0 transition-opacity duration-700 min-h-screen flex flex-col justify-between pointer-events-none hidden">
         
         <!-- 🌎 GLOBAL NAVIGATION BAR -->
         <nav class="bg-[#090d1a]/80 backdrop-blur-xl border-b border-slate-900 sticky top-0 z-40 px-6 transition-colors">
@@ -56,19 +75,19 @@
                 <!-- PLATFORM NAVIGATION LINKS -->
                 <div class="flex items-center space-x-8">
                     <button onclick="showPage('buyerPage')" class="text-sm font-semibold tracking-wide text-blue-400 hover:text-blue-300 transition cursor-pointer">
-                        Browse Products
+                        Buy Items
                     </button>
                     <button onclick="showPage('sellerPage')" class="flex items-center gap-2 bg-blue-600/10 text-blue-400 border border-blue-500/20 px-4 py-2 rounded-xl text-xs font-bold tracking-wide hover:bg-blue-600 hover:text-white transition cursor-pointer">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.214.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8a2.18 2.18 0 01-.75 1.661m0-1.661a2.18 2.18 0 01-.755-1.661V4.91c0-1.112-.859-2.054-1.968-2.13a48.974 48.974 0 00-6.451 0c-1.11.076-1.968 1.018-1.968 2.13v4.126c0 .63.27 1.23.755 1.661m1.11 1.661a2.18 2.18 0 01-.755-1.661m0 1.661a2.18 2.18 0 01-.75 1.661m0-1.661V8.706c0-1.081.768-2.015 1.837-2.175a48.114 48.114 0 013.413-.387m-4.5 8a2.18 2.18 0 00.75 1.661m0 0a2.18 2.18 0 001.525-.611l2.523-2.524a2.18 2.18 0 011.54-.638h2.171c.578 0 1.132.23 1.54.638l2.523 2.524a2.18 2.18 0 001.525.611z"></path></svg>
-                        Merchant Portal
+                        Sell Items
                     </button>
                 </div>
 
                 <!-- CONTROLS CONTAINER -->
                 <div class="flex items-center space-x-4">
                     
-                    <!-- 🌗 INTERACTIVE THEME CAPULE -->
-                    <div onclick="toggleLightDarkMode()" class="theme-pill-bg bg-slate-950 border border-slate-900 p-1 rounded-full flex items-center relative w-20 h-10 cursor-pointer select-none transition-all" title="Switch Interface Mood">
+                    <!-- 🌗 INTERACTIVE THEME CAPSULE -->
+                    <div onclick="toggleLightDarkMode()" class="theme-pill-bg bg-slate-950 border border-slate-900 p-1 rounded-full flex items-center relative w-20 h-10 cursor-pointer select-none transition-all" title="Switch Theme">
                         <div id="themeIndicatorBubble" class="theme-active-bubble absolute top-1 left-1 w-8 h-7.5 bg-blue-600/20 border border-blue-500/30 rounded-full transition-all duration-300 ease-out"></div>
                         <div class="w-1/2 flex justify-center items-center z-10">
                             <svg id="moonIconSvg" class="w-4 h-4 text-blue-400 theme-icon-active" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
@@ -78,7 +97,7 @@
                         </div>
                     </div>
 
-                    <!-- 🛒 PREMIUM SHOPPING BAG ACCENT -->
+                    <!-- 🛒 SHOPPING BAG ACCENT -->
                     <button onclick="toggleCartDrawer(true)" class="settings-action-btn relative w-10 h-10 rounded-xl border border-slate-900 bg-slate-950/40 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer bg-card">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
@@ -86,8 +105,8 @@
                         <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center scale-0 transition-transform">0</span>
                     </button>
 
-                    <!-- ⚙️ PRECISE UTILITY TOGGLE BUTTON -->
-                    <button onclick="toggleSettingsDrawer(true)" class="settings-action-btn w-10 h-10 rounded-xl border border-slate-900 bg-slate-950/40 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-105 group cursor-pointer bg-card" title="Open Dashboard Management">
+                    <!-- ⚙️ HELP & MENU BUTTON -->
+                    <button onclick="toggleSettingsDrawer(true)" class="settings-action-btn w-10 h-10 rounded-xl border border-slate-900 bg-slate-950/40 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-105 group cursor-pointer bg-card" title="Open Settings Menu">
                         <svg class="w-5 h-5 transition-transform duration-500 ease-out group-hover:rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"></path>
                         </svg>
@@ -105,16 +124,16 @@
         <div class="flex-1 w-full z-10">
             
             <!-- 🛒 VIEW 1: BUYER INTERFACE (DEFAULT HOME) -->
-            <div id="buyerPage" class="block animate-fadeIn">
+            <div id="buyerPage" class="block">
                 <!-- HERO CONTENT -->
                 <header class="relative max-w-7xl mx-auto px-6 pt-20 pb-12 text-center">
                     <div class="inline-flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest text-blue-400 mb-6 backdrop-blur-md">
-                        Direct P2P E-Commerce Pipeline
+                        Safe & Direct Deals
                     </div>
-                    <h1 class="text-4xl md:text-6xl font-black tracking-tight text-title text-white max-w-4xl mx-auto leading-[1.12] mb-4">
-                        Acquire Luxury Assets with<br>
-                        <span class="bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Flawless Transaction Transparency.</span>
-                    </h1>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tight text-title text-white max-w-4xl mx-auto leading-[1.12] mb-4">
+                        Buy and Sell Awesome Items<br>
+                        <span class="bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-400 bg-clip-text text-transparent">With Absolute Peace of Mind.</span>
+                    </h2>
                 </header>
 
                 <!-- SEARCH ENGINE TRACK -->
@@ -122,10 +141,10 @@
                     <div class="bg-slate-950/80 border border-slate-900 p-2.5 rounded-2xl shadow-2xl backdrop-blur-md bg-card flex flex-col sm:flex-row gap-2">
                         <div class="flex-1 flex items-center gap-3 px-4">
                             <svg class="w-5 h-5 text-slate-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
-                            <input type="text" placeholder="Search modern laptops, smartphones, dynamic fashion..." class="w-full bg-transparent py-3.5 text-white focus:outline-none text-sm font-medium">
+                            <input type="text" placeholder="Search laptops, phones, clothes..." class="w-full bg-transparent py-3.5 text-white focus:outline-none text-sm font-medium">
                         </div>
                         <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/10 sm:mr-1">
-                            Search Platform
+                            Search Store
                         </button>
                     </div>
                 </div>
@@ -133,22 +152,22 @@
                 <!-- CATEGORIES INTERACTIVE HORIZONTAL GRID -->
                 <div class="max-w-7xl mx-auto px-6 mb-16">
                     <div class="flex items-center justify-start sm:justify-center gap-3 overflow-x-auto pb-3 scrollbar-none">
-                        <button onclick="filterCategory('all')" class="category-tab active px-6 py-3 rounded-xl text-xs font-bold tracking-wide bg-blue-600 text-white border border-transparent transition cursor-pointer whitespace-nowrap">Global Catalog</button>
-                        <button onclick="filterCategory('phones')" class="category-tab px-6 py-3 rounded-xl text-xs font-bold tracking-wide bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap">Smartphones & Handsets</button>
-                        <button onclick="filterCategory('electronics')" class="category-tab px-6 py-3 rounded-xl text-xs font-bold tracking-wide bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap">Computers & Systems</button>
-                        <button onclick="filterCategory('fashion')" class="category-tab px-6 py-3 rounded-xl text-xs font-bold tracking-wide bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap">Premium Apparels</button>
+                        <button onclick="filterCategory(event, 'all')" class="category-tab bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap shadow-md">All Products</button>
+                        <button onclick="filterCategory(event, 'phones')" class="category-tab bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap">Phones & Tablets</button>
+                        <button onclick="filterCategory(event, 'electronics')" class="category-tab bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap">Laptops & Computers</button>
+                        <button onclick="filterCategory(event, 'fashion')" class="category-tab bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap">Fashion & Wears</button>
                     </div>
                 </div>
 
-                <!-- DISPLAY COLLECTIONS GRID GRID -->
+                <!-- DISPLAY COLLECTIONS GRID -->
                 <main class="max-w-7xl mx-auto px-6 pb-20">
                     <div class="flex justify-between items-center mb-8 border-b border-slate-900 pb-4">
-                        <h3 class="text-sm font-bold tracking-wider uppercase text-slate-400 text-muted">Recent Collections</h3>
-                        <span class="text-xs text-blue-400 font-semibold tracking-wide">Live Database Counter</span>
+                        <h3 class="text-sm font-bold tracking-wider uppercase text-slate-400 text-muted">Latest Items</h3>
+                        <span class="text-xs text-blue-400 font-semibold tracking-wide">Updated Live</span>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <!-- Collection Card 1 -->
+                        <!-- Card 1 -->
                         <div class="bg-slate-950/30 border border-slate-900 rounded-2xl overflow-hidden bg-card flex flex-col justify-between h-[470px] hover:border-slate-800 transition duration-300 shadow-xl group">
                             <div class="h-[62%] bg-slate-950 relative overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-102 transition duration-500">
@@ -162,12 +181,12 @@
                                     </div>
                                 </div>
                                 <div class="flex justify-between items-center pt-4 border-t border-slate-900 settings-border-t">
-                                    <span class="text-xs text-muted text-slate-500 font-medium tracking-wide">Merchant: Aura Tech</span>
-                                    <button onclick="addToCart('Apple MacBook Pro 16\'\'', 2850000, 1900)" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg cursor-pointer transition shadow-sm">Add to Bag</button>
+                                    <span class="text-xs text-muted text-slate-500 font-medium tracking-wide">Seller: Aura Tech</span>
+                                    <button onclick="addToCart('Apple MacBook Pro 16\'\'', 2850000, 1900)" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg cursor-pointer transition shadow-sm">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- Collection Card 2 -->
+                        <!-- Card 2 -->
                         <div class="bg-slate-950/30 border border-slate-900 rounded-2xl overflow-hidden bg-card flex flex-col justify-between h-[470px] hover:border-slate-800 transition duration-300 shadow-xl group">
                             <div class="h-[62%] bg-slate-950 relative overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-102 transition duration-500">
@@ -181,8 +200,8 @@
                                     </div>
                                 </div>
                                 <div class="flex justify-between items-center pt-4 border-t border-slate-900 settings-border-t">
-                                    <span class="text-xs text-muted text-slate-500 font-medium tracking-wide">Merchant: SolePlug</span>
-                                    <button onclick="addToCart('Air Jordan 1 High', 1450000, 96)" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg cursor-pointer transition shadow-sm">Add to Bag</button>
+                                    <span class="text-xs text-muted text-slate-500 font-medium tracking-wide">Seller: SolePlug</span>
+                                    <button onclick="addToCart('Air Jordan 1 High', 145000, 96)" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg cursor-pointer transition shadow-sm">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -190,44 +209,44 @@
                 </main>
             </div>
 
-            <!-- 💼 VIEW 2: MERCHANT INTAKE PORTAL -->
-            <div id="sellerPage" class="hidden max-w-3xl mx-auto px-6 py-16 space-y-8 animate-fadeIn">
+            <!-- 💼 VIEW 2: SELLER PORTAL -->
+            <div id="sellerPage" class="hidden max-w-3xl mx-auto px-6 py-16 space-y-8">
                 <div class="text-center space-y-2">
-                    <h2 class="text-3xl font-black tracking-tight text-title text-white">List Secure Digital Asset</h2>
-                    <p class="text-slate-400 text-xs max-w-md mx-auto text-muted tracking-wide font-medium">Input verification metrics below to instantly export cleanly structured database submission templates.</p>
+                    <h2 class="text-3xl font-black tracking-tight text-title text-white">List Your Item for Sale</h2>
+                    <p class="text-slate-400 text-xs max-w-md mx-auto text-muted tracking-wide font-medium">Fill in your item details below to instantly generate your clean WhatsApp listing message.</p>
                 </div>
 
                 <div class="bg-slate-950/40 border border-slate-900 p-8 rounded-2xl bg-card shadow-2xl">
                     <form class="space-y-6" onsubmit="generateListingSubmission(event)">
                         <div>
-                            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Asset Core Specification Name</label>
-                            <input type="text" id="sellerItemName" required placeholder="e.g. iPhone 15 Pro Max (256GB Space Gray)" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
+                            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Item Name</label>
+                            <input type="text" id="sellerItemName" required placeholder="e.g. iPhone 15 Pro Max (256GB)" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                             <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Base Denomination</label>
+                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Currency</label>
                                 <select id="sellerCurrency" onchange="toggleCurrencyPlaceholder()" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white cursor-pointer">
                                     <option value="NGN">Naira (₦)</option>
                                     <option value="USD">US Dollar ($)</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Target Asking Price</label>
+                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Your Asking Price</label>
                                 <input type="number" id="sellerItemPrice" required placeholder="Price in ₦" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
                             </div>
                             <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Corporate Brand Identity</label>
-                                <input type="text" id="sellerBrandName" required placeholder="e.g. Aura Tech Global" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
+                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Shop or Brand Name</label>
+                                <input type="text" id="sellerBrandName" required placeholder="e.g. Aura Tech" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Product Metric Log Description</label>
-                            <textarea id="sellerItemDesc" rows="4" required placeholder="Specify configuration conditions, hardware modifications, and explicit delivery protocols..." class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white resize-none"></textarea>
+                            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Description & Item Condition</label>
+                            <textarea id="sellerItemDesc" rows="4" required placeholder="Describe item condition, inclusions, and delivery options..." class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white resize-none"></textarea>
                         </div>
                         <div class="pt-2">
                             <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-4.5 rounded-xl transition cursor-pointer shadow-xl shadow-blue-600/10 hover:opacity-95 flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.313 1.592 5.433 0 9.85-4.416 9.854-9.848.002-2.63-1.023-5.101-2.886-6.965-1.864-1.864-4.332-2.887-6.961-2.889-5.437 0-9.854 4.417-9.858 9.849-.002 2.081.549 4.115 1.595 5.923l-.999 3.648 3.742-.982zm11.233-7.147c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.669.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.174.2-.298.3-.496.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.223-.57-.372z"/></svg>
-                                Export Secure Merchant Log
+                                Send Listing to WhatsApp
                             </button>
                         </div>
                     </form>
@@ -240,26 +259,26 @@
             <div>
                 <div class="flex justify-between items-center pb-5 border-b border-slate-900 settings-border-t">
                     <h3 class="font-bold text-base tracking-wide text-white text-title flex items-center gap-2">
-                        <span>Current Selections</span>
+                        <span>Your Cart</span>
                     </h3>
                     <button onclick="toggleCartDrawer(false)" class="text-slate-500 hover:text-white text-xl cursor-pointer">&times;</button>
                 </div>
                 <!-- Dynamic Selection Cards -->
                 <div id="cartItemsContainer" class="mt-6 space-y-4 max-h-[60vh] overflow-y-auto pr-1">
-                    <p class="text-xs font-medium text-slate-500 text-center py-12 tracking-wide">Selection pipeline is completely offline.</p>
+                    <p class="text-xs font-medium text-slate-500 text-center py-12 tracking-wide">Your cart is empty.</p>
                 </div>
             </div>
             
             <div class="pt-4 border-t border-slate-900 settings-border-t space-y-4">
                 <div class="flex justify-between items-center text-xs font-bold tracking-wider uppercase">
-                    <span class="text-slate-500">Aggregate Valuation:</span>
+                    <span class="text-slate-500">Total Price:</span>
                     <div class="text-right normal-case">
                         <p id="cartTotalNaira" class="text-emerald-400 font-mono text-base font-extrabold tracking-tight">₦0</p>
                         <p id="cartTotalDollar" class="text-[10px] text-slate-500 font-mono font-bold mt-0.5">$0</p>
                     </div>
                 </div>
                 <button onclick="initiateCheckout()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-95 text-white text-xs font-bold uppercase tracking-wider py-4 rounded-xl shadow-md transition cursor-pointer text-center">
-                    Execute Verified Checkout Gateway
+                    Proceed to Checkout
                 </button>
             </div>
         </div>
@@ -268,76 +287,76 @@
         <div id="settingsDrawer" class="settings-panel fixed inset-y-0 right-0 w-80 bg-slate-950 border-l border-slate-900 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
             <div class="space-y-6">
                 <div class="flex justify-between items-center pb-5 border-b border-slate-900 settings-border-t">
-                    <h3 class="font-bold text-base tracking-wide text-white text-title">System Control</h3>
+                    <h3 class="font-bold text-base tracking-wide text-white text-title">Options & Support</h3>
                     <button onclick="toggleSettingsDrawer(false)" class="text-slate-500 hover:text-white text-xl cursor-pointer">&times;</button>
                 </div>
                 <div class="space-y-5">
                     <div>
-                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest">Environment Profile</p>
-                        <p class="text-xs text-amber-400 font-mono font-semibold tracking-wide mt-1">NGN / Dual Fiat Matrix</p>
+                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest">Store Location</p>
+                        <p class="text-xs text-amber-400 font-mono font-semibold tracking-wide mt-1">Nigeria / Dual Currency</p>
                     </div>
                     <div>
-                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest">Verification Node</p>
-                        <p id="accountStateDisplay" class="text-xs text-rose-500 font-mono font-semibold tracking-wide mt-1">Session Anonymous</p>
+                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest">Account Status</p>
+                        <p id="accountStateDisplay" class="text-xs text-rose-500 font-mono font-semibold tracking-wide mt-1">Not Signed In</p>
                     </div>
                     <div class="pt-4 border-t border-slate-900 settings-border-t">
-                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest mb-3">System Helpdesk</p>
+                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest mb-3">Need Help?</p>
                         <a href="mailto:goodiecodes@gmail.com?subject=MarketHub%20Platform%20Issue%20Report" class="flex items-center justify-center gap-2 w-full bg-slate-900 hover:bg-slate-800 text-rose-400 text-xs font-bold tracking-wide py-3.5 rounded-xl border border-slate-800 text-center transition">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path></svg>
-                            Log System Malfunction
+                            Report a Problem
                         </a>
                     </div>
                 </div>
             </div>
             <button onclick="toggleSettingsDrawer(false)" class="w-full bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 text-xs font-bold uppercase tracking-wider py-4 rounded-xl transition cursor-pointer">
-                Close Configuration Panel
+                Close Menu
             </button>
         </div>
 
-        <!-- 🔐 SECURE ORDER CRYPT MODAL WALL -->
+        <!-- 🔐 SIGN IN / SIGN UP MODAL -->
         <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
             <div class="bg-slate-950 border border-slate-900 w-full max-w-md p-8 rounded-2xl relative transform scale-95 transition-transform duration-300">
                 <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-500 hover:text-white text-2xl cursor-pointer">&times;</button>
                 
                 <div class="flex border-b border-slate-900 mb-6">
                     <button id="tabSignIn" onclick="toggleAuthForm('signin')" class="flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-blue-400 border-b-2 border-blue-400 transition cursor-pointer text-center">Sign In</button>
-                    <button id="tabSignUp" onclick="toggleAuthForm('signup')" class="flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-white transition cursor-pointer text-center">Create Profile</button>
+                    <button id="tabSignUp" onclick="toggleAuthForm('signup')" class="flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-white transition cursor-pointer text-center">Create Account</button>
                 </div>
 
                 <div class="text-center mb-6">
-                    <h3 id="authModalTitle" class="text-xl font-bold tracking-tight text-white">Verification Required</h3>
-                    <p id="authModalDesc" class="text-slate-400 text-xs tracking-wide font-medium mt-1">Authenticate node parameters to securely bridge your current checkout request.</p>
+                    <h3 id="authModalTitle" class="text-xl font-bold tracking-tight text-white">Sign In Required</h3>
+                    <p id="authModalDesc" class="text-slate-400 text-xs tracking-wide font-medium mt-1">Please sign in to finish your order and send it to WhatsApp.</p>
                 </div>
 
                 <form onsubmit="handleAuthSubmission(event)" class="space-y-4">
-                    <div id="additionalRegisterFields" class="hidden animate-fadeIn">
-                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Full Legal Name</label>
+                    <div id="additionalRegisterFields" class="hidden">
+                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Full Name</label>
                         <input type="text" id="authFullName" autocomplete="name" placeholder="John Doe" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3 text-sm font-medium text-white focus:outline-none focus:border-blue-600">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Email Matrix Address</label>
+                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Email Address</label>
                         <input type="email" id="authEmail" required autocomplete="email" placeholder="name@domain.com" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3 text-sm font-medium text-white focus:outline-none focus:border-blue-600">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Secure Access Phrase</label>
+                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Password</label>
                         <input type="password" id="authPassword" required autocomplete="current-password" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3 text-sm font-medium text-white focus:outline-none focus:border-blue-600">
                     </div>
                     
                     <div class="flex items-center justify-between pt-1">
                         <label class="flex items-center space-x-2 text-xs font-medium text-slate-400 cursor-pointer select-none tracking-wide">
                             <input type="checkbox" id="rememberMeCheckbox" checked class="accent-blue-600 rounded border-slate-900 bg-slate-950">
-                            <span>Cache credentials locally</span>
+                            <span>Keep me signed in</span>
                         </label>
                     </div>
 
                     <button type="submit" id="authSubmitBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs uppercase tracking-wider py-4 rounded-xl transition cursor-pointer shadow-md mt-2">
-                        Verify & Complete Bridge
+                        Sign In & Continue
                     </button>
                 </form>
             </div>
         </div>
 
-        <!-- 🏷️ BRANDED EXPORT FOOTER -->
+        <!-- 🏷️ BRANDED FOOTER -->
         <footer class="w-full pb-8 z-10 select-none">
             <div class="text-center">
                 <p class="text-[10px] font-semibold tracking-widest text-slate-600 uppercase text-muted">
@@ -355,32 +374,57 @@
         let activeAuthMode = "signin";
         let shoppingCart = [];
 
+        /* 🌟 ENTRY ANIMATION HUB */
+        function enterMarketplace() {
+            const splash = document.getElementById('splashScreen');
+            const mainContent = document.getElementById('mainAppContent');
+
+            // Fade out splash screen
+            splash.classList.add('opacity-0', 'pointer-events-none');
+            
+            // Set up main content panel safely
+            mainContent.classList.remove('hidden');
+            setTimeout(() => {
+                mainContent.classList.add('opacity-100');
+                mainContent.classList.remove('pointer-events-none');
+                splash.classList.add('hidden'); // Fully remove from view tree
+            }, 400);
+        }
+
         function showPage(pageId) {
             const buyerPage = document.getElementById('buyerPage');
             const sellerPage = document.getElementById('sellerPage');
             if(pageId === 'buyerPage') {
-                buyerPage.classList.replace('hidden', 'block');
-                sellerPage.classList.replace('block', 'hidden');
+                buyerPage.classList.remove('hidden');
+                sellerPage.classList.add('hidden');
             } else {
-                sellerPage.classList.replace('hidden', 'block');
-                buyerPage.classList.replace('block', 'hidden');
+                sellerPage.classList.remove('hidden');
+                buyerPage.classList.add('hidden');
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function filterCategory(categoryKey) {
+        function filterCategory(event, categoryKey) {
             const tabs = document.querySelectorAll('.category-tab');
             tabs.forEach(tab => {
-                tab.classList.remove('active', 'bg-blue-600', 'text-white');
+                tab.className = "category-tab px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap";
                 if(currentTheme === "dark") {
-                    tab.classList.add('bg-slate-950/40', 'text-slate-400', 'border-slate-900');
+                    tab.classList.add('bg-slate-950/40', 'border', 'border-slate-900', 'text-slate-400', 'hover:text-white');
                 } else {
-                    tab.classList.add('bg-f1f5f9', 'text-slate-400', 'border-cbd5e1');
+                    tab.classList.add('bg-slate-100', 'border', 'border-slate-200', 'text-slate-500', 'hover:text-slate-900');
                 }
             });
-            const activeTab = event.currentTarget;
-            activeTab.classList.add('active', 'bg-blue-600', 'text-white');
-            activeTab.classList.remove('bg-slate-950/40', 'bg-f1f5f9', 'text-slate-400', 'border-slate-900', 'border-cbd5e1');
+            
+            if (event && event.currentTarget) {
+                const activeTab = event.currentTarget;
+                activeTab.className = "category-tab bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap shadow-md";
+            } else {
+                // If triggered by theme toggle, preserve the active button style visually
+                const firstTab = tabs[0];
+                if (firstTab) {
+                    firstTab.className = "category-tab bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap shadow-md";
+                }
+            }
         }
 
         function toggleCurrencyPlaceholder() {
@@ -418,11 +462,16 @@
             const badge = document.getElementById('cartCountBadge');
             
             badge.textContent = shoppingCart.length;
-            if(shoppingCart.length > 0) badge.classList.replace('scale-0', 'scale-100');
-            else badge.classList.replace('scale-100', 'scale-0');
+            if(shoppingCart.length > 0) {
+                badge.classList.remove('scale-0');
+                badge.classList.add('scale-100');
+            } else {
+                badge.classList.remove('scale-100');
+                badge.classList.add('scale-0');
+            }
 
             if(shoppingCart.length === 0) {
-                container.innerHTML = `<p class="text-xs font-medium text-slate-500 text-center py-12 tracking-wide">Selection pipeline is completely offline.</p>`;
+                container.innerHTML = `<p class="text-xs font-medium text-slate-500 text-center py-12 tracking-wide">Your cart is empty.</p>`;
                 document.getElementById('cartTotalNaira').textContent = "₦0";
                 document.getElementById('cartTotalDollar').textContent = "$0";
                 return;
@@ -437,7 +486,7 @@
                 totalD += item.priceDollar;
 
                 container.innerHTML += `
-                    <div class="flex justify-between items-center bg-slate-950/50 p-4 rounded-xl border border-slate-900 bg-card">
+                    <div class="flex justify-between items-center p-4 rounded-xl border border-slate-900 bg-card">
                         <div class="flex-1 min-w-0 pr-2">
                             <h4 class="text-xs font-bold text-white text-title tracking-tight truncate">${item.title}</h4>
                             <p class="text-[11px] text-emerald-400 font-mono tracking-tight mt-1">₦${item.priceNaira.toLocaleString()} <span class="text-slate-500 font-sans font-bold ml-1">($${item.priceDollar})</span></p>
@@ -478,17 +527,17 @@
                 tabIn.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-blue-400 border-b-2 border-blue-400 text-center cursor-pointer";
                 tabUp.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent text-center hover:text-white cursor-pointer";
                 nameField.classList.add('hidden');
-                title.textContent = "Verification Required";
-                desc.textContent = "Authenticate node parameters to securely bridge your current checkout request.";
-                submitBtn.textContent = "Verify & Complete Bridge";
+                title.textContent = "Sign In Required";
+                desc.textContent = "Please sign in to finish your order and send it to WhatsApp.";
+                submitBtn.textContent = "Sign In & Continue";
                 passInput.setAttribute('autocomplete', 'current-password');
             } else {
                 tabUp.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-blue-400 border-b-2 border-blue-400 text-center cursor-pointer";
                 tabIn.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent text-center hover:text-white cursor-pointer";
                 nameField.classList.remove('hidden');
-                title.textContent = "Initialize Node Profile";
-                desc.textContent = "Register encrypted parameters to calculate transaction invoices and track history data.";
-                submitBtn.textContent = "Initialize Profile & Bridge";
+                title.textContent = "Create Account";
+                desc.textContent = "Fill in your details to quickly manage your orders and track history.";
+                submitBtn.textContent = "Create Account & Continue";
                 passInput.setAttribute('autocomplete', 'new-password');
             }
         }
@@ -507,7 +556,7 @@
 
         function initiateCheckout() {
             if(shoppingCart.length === 0) {
-                alert("Your selection calculations are currently empty. Please add elements to your bag first.");
+                alert("Your cart is empty. Please add items to your cart first.");
                 return;
             }
             if(!isUserAuthenticated) {
@@ -527,10 +576,10 @@
                 totalN += item.priceNaira;
             });
 
-            const checkoutText = `Hello MarketHub, I want to confirm my cart items:\n\n` +
+            const checkoutText = `Hello MarketHub, I want to buy these items from my cart:\n\n` +
                                  `${listString}\n` +
                                  `💰 Total Bill: ₦${totalN.toLocaleString()}\n\n` +
-                                 `Please process my order payment confirmation query!`;
+                                 `Please process my order payment!`;
 
             window.open(`https://wa.me/2349069336658?text=${encodeURIComponent(checkoutText)}`, '_blank');
             
@@ -559,6 +608,8 @@
                 sunIcon.setAttribute('class', 'w-4 h-4 text-slate-600 theme-icon-dim');
                 currentTheme = "dark";
             }
+            // Sync current tabs layout colors safely without refreshing state
+            filterCategory(null, 'all');
         }
 
         function generateListingSubmission(event) {
@@ -570,11 +621,11 @@
             const desc = document.getElementById('sellerItemDesc').value;
             
             const currencySymbol = currency === "USD" ? "$" : "₦";
-            const messageText = `Hello, I want to list a new digital asset on MarketHub:\n\n` +
+            const messageText = `Hello, I want to sell a new item on MarketHub:\n\n` +
                                 `📦 Item: ${name}\n` +
                                 `💰 Price: ${currencySymbol}${Number(price).toLocaleString()}\n` +
-                                `🏪 Corporate Brand: ${brand}\n` +
-                                `📝 Description Parameters: ${desc}`;
+                                `🏪 Brand/Shop: ${brand}\n` +
+                                `📝 Description: ${desc}`;
                                 
             window.open(`https://wa.me/2349069336658?text=${encodeURIComponent(messageText)}`, '_blank');
         }
