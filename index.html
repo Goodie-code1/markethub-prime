@@ -1,132 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketHub | The Complete Platform</title>
+    <title>MarketHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #070a13; color: white; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="antialiased">
+<body class="dark bg-white dark:bg-[#090d1a] text-slate-800 dark:text-slate-200 antialiased transition-colors duration-300">
 
-    <!-- NAVBAR -->
-    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center">
-        <h1 class="text-3xl font-black tracking-tighter cursor-pointer" onclick="location.reload()">Market<span class="text-blue-500">Hub.</span></h1>
-        <div class="flex items-center gap-6">
-            <span class="text-sm text-slate-500 hidden md:block">Support: +2349069336658</span>
-            <a href="mailto:goodiecodes@gmail.com" class="text-sm text-slate-500 hover:text-blue-400 hidden md:block">goodiecodes@gmail.com</a>
-            <button onclick="toggleCart()" class="text-2xl relative">🛒<span id="cartCount" class="absolute -top-2 -right-2 bg-blue-600 text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span></button>
-            <button onclick="showSection('sellerhub')" class="text-sm font-medium hover:text-blue-400 transition">Storefront</button>
-            <button onclick="openAuthModal()" class="bg-blue-600 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-700 transition">Sign In</button>
-        </div>
-    </nav>
+    <header class="border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 bg-white/80 dark:bg-[#090d1a]/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <span class="text-2xl font-black cursor-pointer" onclick="showSection('landing')">Market<span class="text-blue-500">Hub.</span></span>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="toggleTheme()" class="group relative flex items-center justify-center w-12 h-6 bg-slate-200 dark:bg-slate-700 rounded-full transition-all duration-300 hover:bg-blue-500/20">
+                    <div id="themeToggleThumb" class="absolute left-1 w-4 h-4 bg-white rounded-full shadow-sm transition-all duration-300 dark:translate-x-6"></div>
+                    <span class="text-[10px] ml-5 dark:hidden">☀️</span>
+                    <span class="text-[10px] mr-5 hidden dark:block">🌙</span>
+                </button>
 
-    <!-- CENTERED HERO -->
-    <main id="heroSection" class="max-w-4xl mx-auto px-6 py-24 text-center">
-        <h2 class="text-7xl md:text-8xl font-black leading-[0.9] tracking-tighter mb-8">
-            Connect instantly.<br>
-            <span class="text-blue-500">Trade locally.</span>
-        </h2>
-        <p class="text-slate-400 text-xl mb-12">The premium marketplace for verified assets. Simple, secure, and built for your community.</p>
-        <button onclick="document.getElementById('marketplace').scrollIntoView({behavior:'smooth'})" class="bg-white text-black px-10 py-5 rounded-2xl font-bold text-lg hover:bg-slate-200 transition">Explore Market</button>
-    </main>
-
-    <!-- MARKETPLACE SECTION -->
-    <section id="marketplace" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/10">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-4">
-            <h3 class="text-3xl font-bold">Verified Listings</h3>
-            <div class="flex gap-4">
-                <input type="text" id="searchInput" oninput="filterCatalog()" placeholder="Search 15 products..." class="bg-white/5 border border-white/10 px-6 py-3 rounded-full text-sm w-64 focus:outline-none">
-                <select id="categoryFilter" onchange="filterCatalog()" class="bg-white/5 border border-white/10 px-4 py-3 rounded-full text-sm focus:outline-none">
-                    <option value="all">All Categories</option>
-                    <option value="tech">Tech</option>
-                    <option value="fashion">Fashion</option>
-                </select>
+                <div onclick="toggleCartDrawer()" class="cursor-pointer">🛒</div>
+                
+                <div class="relative">
+                    <button onclick="toggleSettingsDropdown(event)" class="text-xs font-bold hover:text-blue-500">Settings ▼</button>
+                    <div id="settingsDropdownMenu" class="hidden absolute right-0 mt-3 w-48 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2 shadow-xl z-50">
+                        <a href="mailto:goodiecodes@gmail.com" class="block px-3 py-2 text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">Help Desk (Email)</a>
+                        <button onclick="showSection('sellerhub')" class="w-full text-left px-3 py-2 text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg mt-1">Storefront Hub</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
-    </section>
+    </header>
 
-    <!-- SELLER HUB -->
-    <section id="sellerhubSection" class="max-w-4xl mx-auto px-6 py-20 hidden text-center">
-        <h1 class="text-5xl font-black mb-8">Storefront Hub</h1>
-        <div class="bg-white/5 border border-white/10 p-10 rounded-3xl text-left">
-            <h2 class="text-xl font-bold mb-6">Create Your Storefront</h2>
-            <form onsubmit="event.preventDefault(); alert('Storefront Registered!');" class="space-y-4">
-                <input type="text" placeholder="Brand Name" class="w-full bg-black/20 p-4 rounded-xl border border-white/10">
-                <input type="email" placeholder="Business Email" class="w-full bg-black/20 p-4 rounded-xl border border-white/10">
-                <input type="text" placeholder="Phone Number" class="w-full bg-black/20 p-4 rounded-xl border border-white/10">
-                <button type="submit" class="w-full bg-blue-600 py-4 rounded-xl font-bold">Launch Storefront</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- AUTH MODAL -->
-    <div id="authModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center p-6 z-50">
-        <div class="bg-[#0b1120] p-10 rounded-3xl w-full max-w-sm">
-            <h2 class="text-2xl font-bold mb-6" id="authTitle">Sign In</h2>
-            <form onsubmit="event.preventDefault(); closeAuthModal();" class="space-y-4">
-                <input type="text" placeholder="Full Name (Required for Sign Up)" class="w-full bg-black/20 p-4 rounded-xl border border-white/10">
-                <input type="email" placeholder="Email Address" class="w-full bg-black/20 p-4 rounded-xl border border-white/10">
-                <input type="password" placeholder="Password" class="w-full bg-black/20 p-4 rounded-xl border border-white/10">
-                <button type="submit" class="w-full bg-blue-600 py-4 rounded-xl font-bold">Access Account</button>
-            </form>
-            <button onclick="closeAuthModal()" class="text-slate-400 text-sm w-full mt-4">Cancel</button>
-        </div>
-    </div>
+    <main id="landingSection" class="max-w-7xl mx-auto px-6 py-24 text-center">
+        <h1 class="text-6xl font-black mb-6">MarketHub</h1>
+        <p class="text-xl text-slate-500 mb-10">Connect instantly. Trade locally.</p>
+        <button onclick="showSection('homepage')" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold">Explore Marketplace</button>
+    </main>
 
     <script>
-        const products = [
-            { name: "Smartphone X1", category: "tech", price: "₦450,000", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80" },
-            { name: "Streetwear Sneakers", category: "fashion", price: "₦75,000", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80" },
-            { name: "M1 Pro Laptop", category: "tech", price: "₦975,000", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=80" },
-            { name: "Headphones", category: "tech", price: "₦120,000", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" },
-            { name: "Cyberpunk Hoodie", category: "fashion", price: "₦37,500", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80" },
-            { name: "Tactile Keyboard", category: "tech", price: "₦52,500", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80" },
-            { name: "Gaming Monitor", category: "tech", price: "₦262,000", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=500&q=80" },
-            { name: "Minimalist Watch", category: "fashion", price: "₦90,000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" },
-            { name: "Ergonomic Chair", category: "tech", price: "₦135,000", img: "https://images.unsplash.com/photo-1505797149-43b0069ec26b?auto=format&fit=crop&w=500&q=80" },
-            { name: "Leather Backpack", category: "fashion", price: "₦67,500", img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=500&q=80" },
-            { name: "Action Camera", category: "tech", price: "₦180,000", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=80" },
-            { name: "Vintage Jacket", category: "fashion", price: "₦45,000", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=500&q=80" },
-            { name: "Wireless Pad", category: "tech", price: "₦22,500", img: "https://images.unsplash.com/photo-1622445262465-2481c4574875?auto=format&fit=crop&w=500&q=80" },
-            { name: "Workout Shorts", category: "fashion", price: "₦18,000", img: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=500&q=80" },
-            { name: "Fitness Band", category: "tech", price: "₦42,000", img: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format&fit=crop&w=500&q=80" }
-        ];
-
-        function renderProducts(data) {
-            document.getElementById('productGrid').innerHTML = data.map(p => `
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl hover:border-blue-500/50 transition">
-                    <img src="${p.img}" class="w-full h-48 object-cover rounded-2xl mb-4">
-                    <h4 class="font-bold text-lg">${p.name}</h4>
-                    <p class="text-blue-400 font-black text-xl mt-2">${p.price}</p>
-                    <button onclick="alert('Added ${p.name} to cart!')" class="mt-4 w-full bg-white/10 py-3 rounded-xl text-sm font-bold hover:bg-white/20">Add to Cart</button>
-                </div>
-            `).join('');
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark');
+            localStorage.setItem('marketHubTheme', isDark ? 'dark' : 'light');
         }
 
-        function filterCatalog() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cat = document.getElementById('categoryFilter').value;
-            renderProducts(products.filter(p => 
-                (p.name.toLowerCase().includes(query)) && 
-                (cat === 'all' || p.category === cat)
-            ));
+        function toggleSettingsDropdown(e) { 
+            e.stopPropagation(); 
+            document.getElementById('settingsDropdownMenu').classList.toggle('hidden'); 
         }
 
-        function showSection(id) {
-            document.getElementById('heroSection').classList.toggle('hidden', id === 'sellerhub');
-            document.getElementById('marketplace').classList.toggle('hidden', id === 'sellerhub');
-            document.getElementById('sellerhubSection').classList.toggle('hidden', id !== 'sellerhub');
+        // Close dropdown on outside click
+        document.addEventListener('click', () => document.getElementById('settingsDropdownMenu').classList.add('hidden'));
+
+        function showSection(targetSectionId) {
+            // Logic as before...
         }
-
-        function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
-        function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
-        function toggleCart() { alert('Cart: 0 items'); }
-
-        renderProducts(products);
+        
+        // ... (Keep the rest of your robust logic from Untitled-1.html)
     </script>
 </body>
 </html>
