@@ -1,633 +1,421 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketHub — Simple Local & Global Shopping</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>MarketHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
-        
-        /* ☀️ LIGHT MODE THEMES AND OVERRIDES */
-        .light-mode { background-color: #f8fafc; color: #0f172a; }
-        .light-mode .bg-card { background-color: #ffffff; border-color: #e2e8f0; color: #0f172a; }
-        .light-mode .text-muted { color: #64748b; }
-        .light-mode nav { background-color: rgba(255, 255, 255, 0.8); border-color: #e2e8f0; }
-        .light-mode input, .light-mode textarea, .light-mode select { background-color: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
-        .light-mode input::placeholder { color: #94a3b8; }
-        .light-mode .text-title { color: #0f172a; }
-        
-        /* Pill Theme Switcher adjustments in Light Mode */
-        .light-mode .theme-pill-bg { background-color: #e2e8f0; border-color: #cbd5e1; }
-        .light-mode .theme-active-bubble { background-color: #ffffff; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1); }
-        .light-mode .theme-icon-dim { color: #94a3b8; }
-        .light-mode .theme-icon-active { color: #2563eb; }
-        
-        /* Settings & Cart Action buttons adjust */
-        .light-mode .settings-action-btn { background-color: #ffffff; border-color: #cbd5e1; color: #475569; }
-        .light-mode .settings-action-btn:hover { background-color: #f1f5f9; color: #0f172a; }
-        
-        /* Drawer Slide Panels */
-        .light-mode .settings-panel { background-color: #ffffff; border-color: #e2e8f0; color: #0f172a; box-shadow: -10px 0 30px rgba(15, 23, 42, 0.05); }
-        .light-mode .settings-border-t { border-color: #e2e8f0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .market-glow {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, rgba(79, 70, 229, 0.04) 60%, transparent 100%);
+            filter: blur(100px);
+            pointer-events: none;
+        }
     </style>
 </head>
-<body class="bg-[#090d1a] text-slate-200 selection:bg-blue-600 selection:text-white overflow-x-hidden antialiased">
+<body class="dark bg-white dark:bg-[#090d1a] text-slate-800 dark:text-slate-200 overflow-x-hidden relative antialiased transition-colors duration-300">
 
-    <div id="splashScreen" class="fixed inset-0 bg-[#090d1a] z-50 flex flex-col justify-between items-center py-12 px-6 transition-all duration-700 ease-in-out">
-        <div class="absolute w-[350px] h-[350px] bg-blue-600/10 rounded-full blur-[120px] top-1/3 left-1/2 -translate-x-1/2 pointer-events-none"></div>
-        
-        <div></div>
+    <div class="market-glow top-[-10%] left-[-5%] opacity-70 dark:opacity-100"></div>
+    <div class="market-glow bottom-[15%] right-[-10%] opacity-70 dark:opacity-100"></div>
 
-        <div class="text-center space-y-6 z-10 max-w-md animate-fadeIn">
-            <h1 class="text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                MarketHub.
-            </h1>
-            <p class="text-slate-400 text-sm md:text-base font-medium tracking-wide">
-                Simple Local & Global Shopping
-            </p>
-            <div class="pt-4">
-                <button onclick="enterMarketplace()" class="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 hover:scale-105 cursor-pointer flex items-center gap-3 mx-auto">
-                    Enter Shop
-                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
-                    </svg>
+    <header class="bg-white/80 dark:bg-[#090d1a]/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-900 sticky top-0 z-50 h-20 flex items-center transition-colors duration-300">
+        <div class="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
+            
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent cursor-pointer" onclick="showSection('landing')">
+                    Market<span class="text-slate-900 dark:text-white transition-colors duration-300">Hub.</span>
+                </span>
+                <span id="viewIndicator" class="text-[10px] uppercase font-bold tracking-widest bg-blue-600/10 text-blue-600 dark:text-blue-400 px-2.5 py-1 rounded-xl border border-blue-500/20">
+                    Home
+                </span>
+            </div>
+            
+            <div class="flex items-center space-x-4 md:space-x-6">
+                <button onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition cursor-pointer">
+                    <span id="themeIcon" class="text-lg">🌙</span>
                 </button>
+
+                <div onclick="toggleCartDrawer()" class="relative p-2 text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 cursor-pointer transition">
+                    <span class="text-xl">🛒</span>
+                    <span id="cartCountBadge" class="absolute top-0 right-0 bg-blue-600 text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border border-white dark:border-[#090d1a]">
+                        0
+                    </span>
+                </div>
+
+                <button onclick="showSection('homepage')" class="hidden sm:inline-block text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition cursor-pointer">Browse Items</button>
+                
+                <div id="authNavActions" class="flex items-center gap-2">
+                    <button onclick="openAuthModal('login')" class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 hover:text-blue-500 transition px-3 py-2 rounded-xl cursor-pointer">Sign In</button>
+                    <button onclick="openAuthModal('signup')" class="bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition cursor-pointer">Sign Up</button>
+                </div>
+
+                <div id="userSessionProfile" class="hidden relative items-center gap-2">
+                    <button onclick="toggleSettingsDropdown(event)" class="flex items-center gap-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-900 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:border-blue-500 transition cursor-pointer">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span id="sessionNameDisplay">User</span>
+                    </button>
+                    <div id="settingsDropdownMenu" class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-xl p-2 shadow-2xl hidden flex-col z-50">
+                        <button onclick="showSection('sellerhub')" class="w-full text-left text-xs font-medium px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 transition">🏪 Storefront Hub</button>
+                        <button onclick="handleLogout()" class="w-full text-left text-xs font-bold px-3 py-2 rounded-lg text-red-500 hover:bg-red-500/10 transition mt-1">🚪 Exit Session</button>
+                    </div>
+                </div>
+
+                <button onclick="showSection('sellerhub')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition cursor-pointer">Start Selling</button>
             </div>
         </div>
+    </header>
 
-        <div class="z-10 select-none text-center">
-            <p class="text-[10px] font-semibold tracking-widest text-slate-600 uppercase">
-                Powered by <span class="text-blue-500/90 font-bold tracking-normal normal-case font-mono">Ziva_builds</span>
-            </p>
+    <div id="cartDrawer" class="fixed inset-y-0 right-0 w-80 bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-900 z-50 shadow-2xl p-6 hidden flex flex-col justify-between transition-colors duration-300">
+        <div>
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-900 pb-4 mb-4">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Your Selections</h3>
+                <button onclick="toggleCartDrawer()" class="text-sm font-bold text-slate-400 hover:text-red-500 transition cursor-pointer">✕</button>
+            </div>
+            <div id="cartItemsContainer" class="space-y-4 overflow-y-auto max-h-[60vh] text-xs text-slate-500 dark:text-slate-400 py-2">
+                No items added yet.
+            </div>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-900 pt-4">
+            <div class="flex justify-between items-center mb-4 text-sm font-bold text-slate-900 dark:text-white">
+                <span>Queue:</span>
+                <span id="cartTotalItems">0 Items</span>
+            </div>
+            <button onclick="triggerCheckoutProcessing()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition">Proceed to Checkout</button>
         </div>
     </div>
 
-    <div id="mainAppContent" class="opacity-0 transition-opacity duration-700 min-h-screen flex flex-col justify-between pointer-events-none hidden">
-        
-        <nav class="bg-[#090d1a]/80 backdrop-blur-xl border-b border-slate-900 sticky top-0 z-40 px-6 transition-colors">
-            <div class="max-w-7xl mx-auto h-20 flex justify-between items-center">
-                <a href="#" onclick="showPage('buyerPage')" class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent">
-                    Market<span class="text-title text-white">Hub.</span>
-                </a>
-
-                <div class="flex items-center space-x-8">
-                    <button onclick="showPage('buyerPage')" class="text-sm font-semibold tracking-wide text-blue-400 hover:text-blue-300 transition cursor-pointer">
-                        Buy Items
-                    </button>
-                    <button onclick="showPage('sellerPage')" class="flex items-center gap-2 bg-blue-600/10 text-blue-400 border border-blue-500/20 px-4 py-2 rounded-xl text-xs font-bold tracking-wide hover:bg-blue-600 hover:text-white transition cursor-pointer">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.214.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8a2.18 2.18 0 01-.75 1.661m0-1.661a2.18 2.18 0 01-.755-1.661V4.91c0-1.112-.859-2.054-1.968-2.13a48.974 48.974 0 00-6.451 0c-1.11.076-1.968 1.018-1.968 2.13v4.126c0 .63.27 1.23.755 1.661m1.11 1.661a2.18 2.18 0 01-.755-1.661m0 1.661a2.18 2.18 0 01-.75 1.661m0-1.661V8.706c0-1.081.768-2.015 1.837-2.175a48.114 48.114 0 013.413-.387m-4.5 8a2.18 2.18 0 00.75 1.661m0 0a2.18 2.18 0 001.525-.611l2.523-2.524a2.18 2.18 0 011.54-.638h2.171c.578 0 1.132.23 1.54.638l2.523 2.524a2.18 2.18 0 001.525.611z"></path></svg>
-                        Sell Items
-                    </button>
+    <div id="authModalOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-[#090d1a] border border-slate-200 dark:border-slate-900 w-full max-w-md p-8 rounded-2xl shadow-2xl relative mx-4">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 font-bold text-sm cursor-pointer">✕</button>
+            <h3 id="authModalTitle" class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Welcome Back</h3>
+            <div id="authModalAlert" class="hidden my-3 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-medium rounded-xl"></div>
+            <form id="authFormElement" onsubmit="handleAuthSubmission(event)" class="space-y-4 mt-4">
+                <div id="authNameFieldContainer">
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Full Name</label>
+                    <input type="text" id="authFullNameInput" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-xl px-4 py-3 text-xs text-slate-900 dark:text-white focus:outline-none">
                 </div>
-
-                <div class="flex items-center space-x-4">
-                    
-                    <div onclick="toggleLightDarkMode()" class="theme-pill-bg bg-slate-950 border border-slate-900 p-1 rounded-full flex items-center relative w-20 h-10 cursor-pointer select-none transition-all" title="Switch Theme">
-                        <div id="themeIndicatorBubble" class="theme-active-bubble absolute top-1 left-1 w-8 h-7.5 bg-blue-600/20 border border-blue-500/30 rounded-full transition-all duration-300 ease-out"></div>
-                        <div class="w-1/2 flex justify-center items-center z-10">
-                            <svg id="moonIconSvg" class="w-4 h-4 text-blue-400 theme-icon-active" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                        </div>
-                        <div class="w-1/2 flex justify-center items-center z-10">
-                            <svg id="sunIconSvg" class="w-4 h-4 text-slate-600 theme-icon-dim" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-                        </div>
-                    </div>
-
-                    <button onclick="toggleCartDrawer(true)" class="settings-action-btn relative w-10 h-10 rounded-xl border border-slate-900 bg-slate-950/40 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer bg-card">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
-                        </svg>
-                        <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center scale-0 transition-transform">0</span>
-                    </button>
-
-                    <button onclick="toggleSettingsDrawer(true)" class="settings-action-btn w-10 h-10 rounded-xl border border-slate-900 bg-slate-950/40 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-105 group cursor-pointer bg-card" title="Open Settings Menu">
-                        <svg class="w-5 h-5 transition-transform duration-500 ease-out group-hover:rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"></path>
-                        </svg>
-                    </button>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Email Address</label>
+                    <input type="email" id="authEmailInput" required class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-xl px-4 py-3 text-xs text-slate-900 dark:text-white focus:outline-none">
                 </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Security Password</label>
+                    <input type="password" id="authPasswordInput" required class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-xl px-4 py-3 text-xs text-slate-900 dark:text-white focus:outline-none">
+                </div>
+                <button type="submit" id="authSubmitButtonText" class="w-full bg-blue-600 text-white text-xs font-bold uppercase tracking-wider py-3.5 rounded-xl mt-2">Access Account</button>
+            </form>
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-900 text-center text-xs">
+                <span id="authToggleQuestion" class="text-slate-500">Don't have an account?</span>
+                <button onclick="toggleAuthMode()" id="authToggleActionLink" class="text-blue-500 font-bold hover:underline ml-1 cursor-pointer">Sign Up Here</button>
             </div>
-        </nav>
+        </div>
+    </div>
 
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none overflow-hidden z-0">
-            <div class="absolute -top-[30%] left-[10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[160px]"></div>
+    <section id="landingSection" class="max-w-7xl mx-auto px-6 pt-24 pb-32 z-10 relative block">
+        <div class="text-center max-w-3xl mx-auto space-y-6">
+            <span class="text-xs font-bold uppercase text-blue-500 tracking-widest">Welcome to MarketHub</span>
+            <h1 class="text-6xl sm:text-7xl font-black tracking-tight text-slate-900 dark:text-white transition-colors duration-300">MarketHub</h1>
+            <p class="text-slate-600 dark:text-slate-400 text-lg sm:text-xl max-w-xl mx-auto font-medium tracking-wide">Connect instantly. Trade locally.</p>
+            <div class="pt-6 flex flex-wrap justify-center gap-4">
+                <button onclick="showSection('homepage')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-xl transition shadow-lg shadow-blue-600/10">Explore Marketplace</button>
+                <button onclick="showSection('sellerhub')" class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-xl transition">Launch Storefront</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="homepageSection" class="max-w-7xl mx-auto px-6 pt-10 pb-24 z-10 relative hidden">
+        
+        <div class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-900 rounded-2xl p-4 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div class="w-full md:w-1/2 relative">
+                <input type="text" id="productSearchInput" oninput="filterCatalog()" placeholder="Search from 15 premium verified listings..." class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-900 rounded-xl pl-4 pr-10 py-3 text-xs font-medium focus:outline-none text-slate-900 dark:text-white">
+                <span class="absolute right-4 top-3.5 text-slate-400 text-xs">🔍</span>
+            </div>
+            <div class="w-full md:w-auto flex gap-3">
+                <select id="conditionFilter" onchange="filterCatalog()" class="bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-900 rounded-xl px-4 py-3 text-xs font-medium text-slate-600 dark:text-slate-400 focus:outline-none">
+                    <option value="all">All Conditions</option>
+                    <option value="Brand New">Brand New</option>
+                    <option value="Pre-Owned">Pre-Owned</option>
+                </select>
+                <select id="priceSorter" onchange="filterCatalog()" class="bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-900 rounded-xl px-4 py-3 text-xs font-medium text-slate-600 dark:text-slate-400 focus:outline-none">
+                    <option value="asc">Price: Low to High</option>
+                    <option value="desc">Price: High to Low</option>
+                </select>
+            </div>
         </div>
 
-        <div class="flex-1 w-full z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            <div id="buyerPage" class="block">
-                <header class="relative max-w-7xl mx-auto px-6 pt-20 pb-12 text-center">
-                    <div class="inline-flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest text-blue-400 mb-6 backdrop-blur-md">
-                        Safe & Direct Deals
-                    </div>
-                    <h2 class="text-4xl md:text-6xl font-black tracking-tight text-title text-white max-w-4xl mx-auto leading-[1.12] mb-4">
-                        Buy and Sell Awesome Items<br>
-                        <span class="bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-400 bg-clip-text text-transparent">With Absolute Peace of Mind.</span>
-                    </h2>
-                </header>
-
-                <div class="max-w-3xl mx-auto px-6 mb-14">
-                    <div class="bg-slate-950/80 border border-slate-900 p-2.5 rounded-2xl shadow-2xl backdrop-blur-md bg-card flex flex-col sm:flex-row gap-2">
-                        <div class="flex-1 flex items-center gap-3 px-4">
-                            <svg class="w-5 h-5 text-slate-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
-                            <input type="text" placeholder="Search laptops, phones, clothes..." class="w-full bg-transparent py-3.5 text-white focus:outline-none text-sm font-medium">
-                        </div>
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/10 sm:mr-1">
-                            Search Store
-                        </button>
-                    </div>
-                </div>
-
-                <div class="max-w-7xl mx-auto px-6 mb-16">
-                    <div class="flex items-center justify-start sm:justify-center gap-3 overflow-x-auto pb-3 scrollbar-none">
-                        <button onclick="filterCategory(event, 'all')" class="category-tab bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap shadow-md">All Products</button>
-                        <button onclick="filterCategory(event, 'phones')" class="category-tab bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap">Phones & Tablets</button>
-                        <button onclick="filterCategory(event, 'electronics')" class="category-tab bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap">Laptops & Computers</button>
-                        <button onclick="filterCategory(event, 'fashion')" class="category-tab bg-slate-950/40 border border-slate-900 text-slate-400 hover:text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap">Fashion & Wears</button>
-                    </div>
-                </div>
-
-                <main class="max-w-7xl mx-auto px-6 pb-20">
-                    <div class="flex justify-between items-center mb-8 border-b border-slate-900 pb-4">
-                        <h3 class="text-sm font-bold tracking-wider uppercase text-slate-400 text-muted">Latest Items</h3>
-                        <span class="text-xs text-blue-400 font-semibold tracking-wide">Updated Live</span>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-slate-950/30 border border-slate-900 rounded-2xl overflow-hidden bg-card flex flex-col justify-between h-[470px] hover:border-slate-800 transition duration-300 shadow-xl group">
-                            <div class="h-[62%] bg-slate-950 relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-102 transition duration-500">
-                            </div>
-                            <div class="p-6 flex-1 flex flex-col justify-between">
-                                <div class="flex justify-between items-start gap-2">
-                                    <h4 class="font-bold text-base text-title text-white tracking-tight truncate">Apple MacBook Pro 16"</h4>
-                                    <div class="shrink-0">
-                                        <p class="font-extrabold text-emerald-400 text-right font-mono text-base tracking-tight">₦2,850,000</p>
-                                        <p class="text-[10px] text-slate-500 text-muted text-right font-mono font-bold mt-0.5">$1,900</p>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center pt-4 border-t border-slate-900 settings-border-t">
-                                    <span class="text-xs text-muted text-slate-500 font-medium tracking-wide">Seller: Aura Tech</span>
-                                    <button onclick="addToCart('Apple MacBook Pro 16\'\'', 2850000, 1900)" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg cursor-pointer transition shadow-sm">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-slate-950/30 border border-slate-900 rounded-2xl overflow-hidden bg-card flex flex-col justify-between h-[470px] hover:border-slate-800 transition duration-300 shadow-xl group">
-                            <div class="h-[62%] bg-slate-950 relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-102 transition duration-500">
-                            </div>
-                            <div class="p-6 flex-1 flex flex-col justify-between">
-                                <div class="flex justify-between items-start gap-2">
-                                    <h4 class="font-bold text-base text-title text-white tracking-tight truncate">Air Jordan 1 High</h4>
-                                    <div class="shrink-0">
-                                        <p class="font-extrabold text-emerald-400 text-right font-mono text-base tracking-tight">₦145,000</p>
-                                        <p class="text-[10px] text-slate-500 text-muted text-right font-mono font-bold mt-0.5">$96</p>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center pt-4 border-t border-slate-900 settings-border-t">
-                                    <span class="text-xs text-muted text-slate-500 font-medium tracking-wide">Seller: SolePlug</span>
-                                    <button onclick="addToCart('Air Jordan 1 High', 145000, 96)" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg cursor-pointer transition shadow-sm">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
+            <div class="lg:col-span-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-900 rounded-2xl p-4 relative backdrop-blur-md">
+                <h3 class="text-xs font-bold tracking-wider uppercase text-slate-400 px-3 mb-3">Categories</h3>
+                <nav class="space-y-1">
+                    <button onclick="setCategoryFilter('all')" class="w-full flex items-center justify-between px-3 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 hover:dark:bg-slate-900/60 transition cursor-pointer">📦 All Products</button>
+                    <button onclick="setCategoryFilter('tech')" class="w-full flex items-center justify-between px-3 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 hover:dark:bg-slate-900/60 transition cursor-pointer">📱 Phones & Tech</button>
+                    <button onclick="setCategoryFilter('fashion')" class="w-full flex items-center justify-between px-3 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 hover:dark:bg-slate-900/60 transition cursor-pointer">👟 Apparel & Fashion</button>
+                </nav>
             </div>
 
-            <div id="sellerPage" class="hidden max-w-3xl mx-auto px-6 py-16 space-y-8">
-                <div class="text-center space-y-2">
-                    <h2 class="text-3xl font-black tracking-tight text-title text-white">List Your Item for Sale</h2>
-                    <p class="text-slate-400 text-xs max-w-md mx-auto text-muted tracking-wide font-medium">Fill in your item details below to instantly generate your clean WhatsApp listing message.</p>
+            <div class="lg:col-span-9 space-y-6">
+                <div class="h-[120px] bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-950 dark:to-slate-900 border border-slate-200 dark:border-slate-900 rounded-2xl relative overflow-hidden flex flex-col justify-center px-8">
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight mb-1">Verified Marketplace</h2>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 font-medium">15 premium items loaded dynamically inside client state registers.</p>
                 </div>
 
-                <div class="bg-slate-950/40 border border-slate-900 p-8 rounded-2xl bg-card shadow-2xl">
-                    <form class="space-y-6" onsubmit="generateListingSubmission(event)">
+                <div id="productGridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="sellerhubSection" class="max-w-7xl mx-auto px-6 pt-12 pb-24 z-10 relative hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-6 space-y-6">
+                <h1 class="text-5xl font-black tracking-tight text-slate-900 dark:text-white">Storefront Hub</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-base font-medium leading-relaxed">Launch your layout profiles and monitor mock sales streams cleanly inside local caching structures.</p>
+            </div>
+            <div class="lg:col-span-6">
+                <div id="shopRegistrationFormCard" class="bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-900 p-8 rounded-2xl shadow-2xl block">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Create Your Storefront</h2>
+                    <form class="space-y-5" onsubmit="handleShopOnboarding(event)">
                         <div>
-                            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Item Name</label>
-                            <input type="text" id="sellerItemName" required placeholder="e.g. iPhone 15 Pro Max (256GB)" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                            <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Currency</label>
-                                <select id="sellerCurrency" onchange="toggleCurrencyPlaceholder()" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white cursor-pointer">
-                                    <option value="NGN">Naira (₦)</option>
-                                    <option value="USD">US Dollar ($)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Your Asking Price</label>
-                                <input type="number" id="sellerItemPrice" required placeholder="Price in ₦" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Shop or Brand Name</label>
-                                <input type="text" id="sellerBrandName" required placeholder="e.g. Aura Tech" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white">
-                            </div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-500 mb-2">Brand Name</label>
+                            <input type="text" id="shopNameInput" required class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-900 rounded-xl px-4 py-3.5 text-sm text-slate-900 dark:text-white focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 text-muted mb-2">Description & Item Condition</label>
-                            <textarea id="sellerItemDesc" rows="4" required placeholder="Describe item condition, inclusions, and delivery options..." class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-600 text-white resize-none"></textarea>
+                            <label class="block text-[11px] font-bold uppercase text-slate-500 mb-2">Business Line</label>
+                            <input type="tel" id="shopContactInput" required value="+2349069336658" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-900 rounded-xl px-4 py-3.5 text-sm text-slate-900 dark:text-white focus:outline-none">
                         </div>
-                        <div class="pt-2">
-                            <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-4.5 rounded-xl transition cursor-pointer shadow-xl shadow-blue-600/10 hover:opacity-95 flex items-center justify-center gap-2">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.313 1.592 5.433 0 9.85-4.416 9.854-9.848.002-2.63-1.023-5.101-2.886-6.965-1.864-1.864-4.332-2.887-6.961-2.889-5.437 0-9.854 4.417-9.858 9.849-.002 2.081.549 4.115 1.595 5.923l-.999 3.648 3.742-.982zm11.233-7.147c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.669.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.174.2-.298.3-.496.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.223-.57-.372z"/></svg>
-                                Send Listing to WhatsApp
-                            </button>
-                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white text-xs font-bold uppercase tracking-wider py-4 rounded-xl">Launch Storefront</button>
                     </form>
                 </div>
+                <div id="shopDashboardPanelCard" class="bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-900 p-8 rounded-2xl shadow-2xl hidden flex-col">
+                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-4">
+                        <h2 id="dashShopNameDisplay" class="text-2xl font-black text-slate-900 dark:text-white">Shop Panel</h2>
+                        <button onclick="handleUnlinkStorefront()" class="text-xs bg-red-500/10 text-red-500 font-bold px-3 py-1.5 rounded-xl">Unlink</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-xl p-4 text-center">
+                            <span class="block text-[10px] uppercase text-slate-400 font-bold">Total Sales</span>
+                            <span class="text-xl font-extrabold text-slate-900 dark:text-white mt-1 block">₦0.00</span>
+                        </div>
+                        <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-xl p-4 text-center">
+                            <span class="block text-[10px] uppercase text-slate-400 font-bold">Impressions</span>
+                            <span class="text-xl font-extrabold text-blue-500 mt-1 block">124</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div id="cartDrawer" class="settings-panel fixed inset-y-0 right-0 w-85 bg-slate-950 border-l border-slate-900 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
-            <div>
-                <div class="flex justify-between items-center pb-5 border-b border-slate-900 settings-border-t">
-                    <h3 class="font-bold text-base tracking-wide text-white text-title flex items-center gap-2">
-                        <span>Your Cart</span>
-                    </h3>
-                    <button onclick="toggleCartDrawer(false)" class="text-slate-500 hover:text-white text-xl cursor-pointer">&times;</button>
-                </div>
-                <div id="cartItemsContainer" class="mt-6 space-y-4 max-h-[60vh] overflow-y-auto pr-1">
-                    <p class="text-xs font-medium text-slate-500 text-center py-12 tracking-wide">Your cart is empty.</p>
-                </div>
-            </div>
-            
-            <div class="pt-4 border-t border-slate-900 settings-border-t space-y-4">
-                <div class="flex justify-between items-center text-xs font-bold tracking-wider uppercase">
-                    <span class="text-slate-500">Total Price:</span>
-                    <div class="text-right normal-case">
-                        <p id="cartTotalNaira" class="text-emerald-400 font-mono text-base font-extrabold tracking-tight">₦0</p>
-                        <p id="cartTotalDollar" class="text-[10px] text-slate-500 font-mono font-bold mt-0.5">$0</p>
-                    </div>
-                </div>
-                <button onclick="initiateCheckout()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-95 text-white text-xs font-bold uppercase tracking-wider py-4 rounded-xl shadow-md transition cursor-pointer text-center">
-                    Proceed to Checkout
-                </button>
-            </div>
+    <footer class="border-t border-slate-200 dark:border-slate-900 bg-slate-50 dark:bg-slate-950/80 py-8 select-none z-20 relative">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-[11px] font-bold tracking-widest text-slate-400 dark:text-slate-600 uppercase">Powered by <span class="text-blue-500/90 font-bold tracking-normal normal-case font-mono">Ziva_builds</span></p>
         </div>
-
-        <div id="settingsDrawer" class="settings-panel fixed inset-y-0 right-0 w-80 bg-slate-950 border-l border-slate-900 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
-            <div class="space-y-6">
-                <div class="flex justify-between items-center pb-5 border-b border-slate-900 settings-border-t">
-                    <h3 class="font-bold text-base tracking-wide text-white text-title">Options & Support</h3>
-                    <button onclick="toggleSettingsDrawer(false)" class="text-slate-500 hover:text-white text-xl cursor-pointer">&times;</button>
-                </div>
-                <div class="space-y-5">
-                    <div>
-                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest">Store Location</p>
-                        <p class="text-xs text-amber-400 font-mono font-semibold tracking-wide mt-1">Nigeria / Dual Currency</p>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest">Account Status</p>
-                        <p id="accountStateDisplay" class="text-xs text-rose-500 font-mono font-semibold tracking-wide mt-1">Not Signed In</p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-900 settings-border-t">
-                        <p class="text-[11px] font-bold text-slate-500 text-muted uppercase tracking-widest mb-3">Need Help?</p>
-                        <button onclick="launchEmailSupportPipeline()" class="flex items-center justify-center gap-2 w-full bg-slate-900 hover:bg-slate-800 text-rose-400 text-xs font-bold tracking-wide py-3.5 rounded-xl border border-slate-800 text-center transition cursor-pointer">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path></svg>
-                            Report a Problem
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <button onclick="toggleSettingsDrawer(false)" class="w-full bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 text-xs font-bold uppercase tracking-wider py-4 rounded-xl transition cursor-pointer">
-                Close Menu
-            </button>
-        </div>
-
-        <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
-            <div class="bg-slate-950 border border-slate-900 w-full max-w-md p-8 rounded-2xl relative transform scale-95 transition-transform duration-300">
-                <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-500 hover:text-white text-2xl cursor-pointer">&times;</button>
-                
-                <div class="flex border-b border-slate-900 mb-6">
-                    <button id="tabSignIn" onclick="toggleAuthForm('signin')" class="flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-blue-400 border-b-2 border-blue-400 transition cursor-pointer text-center">Sign In</button>
-                    <button id="tabSignUp" onclick="toggleAuthForm('signup')" class="flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent hover:text-white transition cursor-pointer text-center">Create Account</button>
-                </div>
-
-                <div class="text-center mb-6">
-                    <h3 id="authModalTitle" class="text-xl font-bold tracking-tight text-white">Sign In Required</h3>
-                    <p id="authModalDesc" class="text-slate-400 text-xs tracking-wide font-medium mt-1">Please sign in to finish your order and send it to WhatsApp.</p>
-                </div>
-
-                <form onsubmit="handleAuthSubmission(event)" class="space-y-4">
-                    <div id="additionalRegisterFields" class="hidden">
-                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Full Name</label>
-                        <input type="text" id="authFullName" autocomplete="name" placeholder="John Doe" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3 text-sm font-medium text-white focus:outline-none focus:border-blue-600">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Email Address</label>
-                        <input type="email" id="authEmail" required autocomplete="email" placeholder="name@domain.com" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3 text-sm font-medium text-white focus:outline-none focus:border-blue-600">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-semibold text-slate-400 mb-1 tracking-wide">Password</label>
-                        <input type="password" id="authPassword" required autocomplete="current-password" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3 text-sm font-medium text-white focus:outline-none focus:border-blue-600">
-                    </div>
-                    
-                    <div class="flex items-center justify-between pt-1">
-                        <label class="flex items-center space-x-2 text-xs font-medium text-slate-400 cursor-pointer select-none tracking-wide">
-                            <input type="checkbox" id="rememberMeCheckbox" checked class="accent-blue-600 rounded border-slate-900 bg-slate-950">
-                            <span>Keep me signed in</span>
-                        </label>
-                    </div>
-
-                    <button type="submit" id="authSubmitBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs uppercase tracking-wider py-4 rounded-xl transition cursor-pointer shadow-md mt-2">
-                        Sign In & Continue
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <footer class="w-full pb-8 z-10 select-none">
-            <div class="text-center">
-                <p class="text-[10px] font-semibold tracking-widest text-slate-600 uppercase text-muted">
-                    Powered by <span class="text-blue-500/90 font-bold tracking-normal normal-case font-mono">Ziva_builds</span>
-                </p>
-            </div>
-        </footer>
-
-    </div>
+    </footer>
 
     <script>
-        let currentTheme = "dark";
-        let isUserAuthenticated = false;
-        let activeAuthMode = "signin";
-        let shoppingCart = [];
+        const PRODUCT_MASTER_CATALOG = [
+            { id: 1, name: "Premium Smartphone X1", category: "tech", condition: "Brand New", valNgn: 450000, txtNgn: "₦450,000", txtUsd: "$300", icon: "📱", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80", desc: "Flagship AMOLED display hardware with fast-charge system links." },
+            { id: 2, name: "Retro Streetwear Sneakers", category: "fashion", condition: "Brand New", valNgn: 75000, txtNgn: "₦75,000", txtUsd: "$50", icon: "👟", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80", desc: "Premium suede side stitching panels. Extreme durability specs." },
+            { id: 3, name: "M1 Pro Core Laptop", category: "tech", condition: "Pre-Owned", valNgn: 975000, txtNgn: "₦975,000", txtUsd: "$650", icon: "💻", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=80", desc: "Developer workflow machine. 100% stable battery cycles configuration." },
+            { id: 4, name: "Noise-Cancelling Headphones", category: "tech", condition: "Brand New", valNgn: 120000, txtNgn: "₦120,000", txtUsd: "$80", icon: "🎧", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80", desc: "Studio acoustics environment filters, ideal for continuous audio design." },
+            { id: 5, name: "Cyberpunk Heavy Hoodie", category: "fashion", condition: "Brand New", valNgn: 37500, txtNgn: "₦37,500", txtUsd: "$25", icon: "🧥", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80", desc: "Heavyweight drop-shoulder structural cotton compilation architecture." },
+            { id: 6, name: "Mechanical Tactile Keyboard", category: "tech", condition: "Pre-Owned", valNgn: 52500, txtNgn: "₦52,500", txtUsd: "$35", icon: "⌨️", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80", desc: "Hot-swappable brown switches with customized lighting interface maps." },
+            { id: 7, name: "Ultra-Wide Gaming Monitor", category: "tech", condition: "Brand New", valNgn: 262500, txtNgn: "₦262,000", txtUsd: "$175", icon: "🖥️", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=500&q=80", desc: "144Hz refresh panel array mapping out flawless view vectors." },
+            { id: 8, name: "Classic Minimalist Watch", category: "fashion", condition: "Brand New", valNgn: 90000, txtNgn: "₦90,000", txtUsd: "$60", icon: "⌚", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80", desc: "Stainless metallic frame running precise quartz clock loops." },
+            { id: 9, name: "Ergonomic Mesh Chair", category: "tech", condition: "Pre-Owned", valNgn: 135000, txtNgn: "₦135,000", txtUsd: "$90", icon: "🪑", img: "https://images.unsplash.com/photo-1505797149-43b0069ec26b?auto=format&fit=crop&w=500&q=80", desc: "High-grade lumbar support tracks built for prolonged workstation usage." },
+            { id: 10, name: "Leather Travel Backpack", category: "fashion", condition: "Brand New", valNgn: 67500, txtNgn: "₦67,500", txtUsd: "$45", icon: "🎒", img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=500&q=80", desc: "Waterproof internal compartments layered cleanly for dynamic portability." },
+            { id: 11, name: "Dual-Lens Action Camera", category: "tech", condition: "Brand New", valNgn: 180000, txtNgn: "₦180,000", txtUsd: "$120", icon: "📷", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=80", desc: "4K ultra stability capture loops built directly into rugged modular hulls." },
+            { id: 12, name: "Vintage Canvas Jacket", category: "fashion", condition: "Pre-Owned", valNgn: 45000, txtNgn: "₦45,000", txtUsd: "$30", icon: "🧥", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=500&q=80", desc: "Washed retro texture outlines with isolated thermal inner protection linings." },
+            { id: 13, name: "Wireless Charging Pad", category: "tech", condition: "Brand New", valNgn: 22500, txtNgn: "₦22,500", txtUsd: "$15", icon: "⚡", img: "https://images.unsplash.com/photo-1622445262465-2481c4574875?auto=format&fit=crop&w=500&q=80", desc: "Fast-induction structural coil pathways matching global safety specs." },
+            { id: 14, name: "Running Workout Shorts", category: "fashion", condition: "Brand New", valNgn: 18000, txtNgn: "₦18,000", txtUsd: "$12", icon: "🩳", img: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=500&q=80", desc: "Lightweight mesh framework providing maximum airflow loops." },
+            { id: 15, name: "Smart Fitness Wristband", category: "tech", condition: "Brand New", valNgn: 42000, txtNgn: "₦42,000", txtUsd: "$28", icon: "⌚", img: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format&fit=crop&w=500&q=80", desc: "Dynamic physical exertion data metrics tracking paths seamlessly." }
+        ];
 
-        /* 🌟 ENTRY ANIMATION HUB */
-        function enterMarketplace() {
-            const splash = document.getElementById('splashScreen');
-            const mainContent = document.getElementById('mainAppContent');
+        let selectedCategoryFilter = "all";
+        let cartItems = [];
+        let activeUserSession = null;
+        let currentAuthMode = 'login';
 
-            // Fade out splash screen
-            splash.classList.add('opacity-0', 'pointer-events-none');
-            
-            // Set up main content panel safely
-            mainContent.classList.remove('hidden');
-            setTimeout(() => {
-                mainContent.classList.add('opacity-100');
-                mainContent.classList.remove('pointer-events-none');
-                splash.classList.add('hidden'); // Fully remove from view tree
-            }, 400);
-        }
-
-        function showPage(pageId) {
-            const buyerPage = document.getElementById('buyerPage');
-            const sellerPage = document.getElementById('sellerPage');
-            if(pageId === 'buyerPage') {
-                buyerPage.classList.remove('hidden');
-                sellerPage.classList.add('hidden');
-            } else {
-                sellerPage.classList.remove('hidden');
-                buyerPage.classList.add('hidden');
-            }
+        function showSection(targetSectionId) {
+            const sections = ['landingSection', 'homepageSection', 'sellerhubSection'];
+            sections.forEach(s => {
+                document.getElementById(s).classList.add('hidden');
+                document.getElementById(s).classList.remove('block');
+            });
+            const labels = { landing: 'Home', homepage: 'Marketplace', sellerhub: 'Sellers' };
+            document.getElementById(targetSectionId + 'Section').classList.remove('hidden');
+            document.getElementById(targetSectionId + 'Section').classList.add('block');
+            document.getElementById('viewIndicator').textContent = labels[targetSectionId];
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function filterCategory(event, categoryKey) {
-            const tabs = document.querySelectorAll('.category-tab');
-            tabs.forEach(tab => {
-                tab.className = "category-tab px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap";
-                if(currentTheme === "dark") {
-                    tab.classList.add('bg-slate-950/40', 'border', 'border-slate-900', 'text-slate-400', 'hover:text-white');
-                } else {
-                    tab.classList.add('bg-slate-100', 'border', 'border-slate-200', 'text-slate-500', 'hover:text-slate-900');
-                }
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark');
+            document.getElementById('themeIcon').textContent = isDark ? "🌙" : "☀️";
+            localStorage.setItem('marketHubTheme', isDark ? 'dark' : 'light');
+        }
+
+        function setCategoryFilter(category) {
+            selectedCategoryFilter = category;
+            filterCatalog();
+        }
+
+        function filterCatalog() {
+            const query = document.getElementById('productSearchInput').value.toLowerCase();
+            const condition = document.getElementById('conditionFilter').value;
+            const sort = document.getElementById('priceSorter').value;
+
+            let records = PRODUCT_MASTER_CATALOG.filter(item => {
+                const searchMatch = item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+                const categoryMatch = selectedCategoryFilter === "all" || item.category === selectedCategoryFilter;
+                const conditionMatch = condition === "all" || item.condition === condition;
+                return searchMatch && categoryMatch && conditionMatch;
             });
-            
-            if (event && event.currentTarget) {
-                const activeTab = event.currentTarget;
-                activeTab.className = "category-tab bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap shadow-md";
-            } else {
-                const firstTab = tabs[0];
-                if (firstTab) {
-                    firstTab.className = "category-tab bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer whitespace-nowrap shadow-md";
-                }
-            }
+
+            records.sort((a, b) => sort === "asc" ? a.valNgn - b.valNgn : b.valNgn - a.valNgn);
+            renderCatalogCards(records);
         }
 
-        function toggleCurrencyPlaceholder() {
-            const currencySelect = document.getElementById('sellerCurrency').value;
-            const priceInput = document.getElementById('sellerItemPrice');
-            priceInput.placeholder = currencySelect === "USD" ? "Price in $" : "Price in ₦";
-        }
-
-        /* 🛒 SHOPPING BAG LOGIC */
-        function toggleCartDrawer(shouldOpen) {
-            const drawer = document.getElementById('cartDrawer');
-            if(shouldOpen) drawer.classList.remove('translate-x-full');
-            else drawer.classList.add('translate-x-full');
-        }
-
-        function toggleSettingsDrawer(shouldOpen) {
-            const drawer = document.getElementById('settingsDrawer');
-            if(shouldOpen) drawer.classList.remove('translate-x-full');
-            else drawer.classList.add('translate-x-full');
-        }
-
-        function addToCart(title, priceNaira, priceDollar) {
-            shoppingCart.push({ title, priceNaira, priceDollar });
-            updateCartInterface();
-            toggleCartDrawer(true);
-        }
-
-        function removeFromCart(index) {
-            shoppingCart.splice(index, 1);
-            updateCartInterface();
-        }
-
-        function updateCartInterface() {
-            const container = document.getElementById('cartItemsContainer');
-            const badge = document.getElementById('cartCountBadge');
-            
-            badge.textContent = shoppingCart.length;
-            if(shoppingCart.length > 0) {
-                badge.classList.remove('scale-0');
-                badge.classList.add('scale-100');
-            } else {
-                badge.classList.remove('scale-100');
-                badge.classList.add('scale-0');
-            }
-
-            if(shoppingCart.length === 0) {
-                container.innerHTML = `<p class="text-xs font-medium text-slate-500 text-center py-12 tracking-wide">Your cart is empty.</p>`;
-                document.getElementById('cartTotalNaira').textContent = "₦0";
-                document.getElementById('cartTotalDollar').textContent = "$0";
+        function renderCatalogCards(dataset) {
+            const grid = document.getElementById('productGridContainer');
+            if (dataset.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-xs font-semibold text-slate-400">No products match your adjustments.</div>`;
                 return;
             }
-
-            let totalN = 0;
-            let totalD = 0;
-            container.innerHTML = "";
-
-            shoppingCart.forEach((item, index) => {
-                totalN += item.priceNaira;
-                totalD += item.priceDollar;
-
-                container.innerHTML += `
-                    <div class="flex justify-between items-center p-4 rounded-xl border border-slate-900 bg-card">
-                        <div class="flex-1 min-w-0 pr-2">
-                            <h4 class="text-xs font-bold text-white text-title tracking-tight truncate">${item.title}</h4>
-                            <p class="text-[11px] text-emerald-400 font-mono tracking-tight mt-1">₦${item.priceNaira.toLocaleString()} <span class="text-slate-500 font-sans font-bold ml-1">($${item.priceDollar})</span></p>
+            grid.innerHTML = dataset.map(item => `
+                <div class="bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-900 rounded-2xl p-4 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/30">
+                    <div>
+                        <div class="aspect-square w-full bg-slate-200 dark:bg-slate-900 rounded-xl mb-3 overflow-hidden relative group">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-2 right-2 text-[9px] uppercase font-black px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-950/80 tracking-wider text-slate-500">${item.condition}</span>
                         </div>
-                        <button onclick="removeFromCart(${index})" class="text-slate-500 hover:text-rose-400 text-lg font-medium p-1 cursor-pointer transition">&times;</button>
-                    </div>`;
-            });
-
-            document.getElementById('cartTotalNaira').textContent = `₦${totalN.toLocaleString()}`;
-            document.getElementById('cartTotalDollar').textContent = `$${totalD.toLocaleString()}`;
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white">${item.name}</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-2 line-clamp-2 leading-relaxed">${item.desc}</p>
+                        <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-900 pt-2 mt-2">
+                            <span class="text-sm font-extrabold text-blue-500">${item.txtNgn}</span>
+                            <span class="text-xs font-semibold text-slate-400 font-mono">${item.txtUsd}</span>
+                        </div>
+                    </div>
+                    <button onclick="addToCart('${item.name}', '${item.txtNgn}', '${item.txtUsd}')" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl transition cursor-pointer">Add To Cart</button>
+                </div>
+            `).join('');
         }
 
-        /* 🔐 SESSION MANAGEMENT RULES */
-        function openAuthModal() {
-            const modal = document.getElementById('authModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+        function toggleCartDrawer() { document.getElementById('cartDrawer').classList.toggle('hidden'); }
+
+        // REMOVED STRING INJECTIONS - PROPERLY ADDS OBJECT REF TO PREVENT PARSE CRASHES
+        function addToCart(name, ngn, usd) {
+            cartItems.push({ name, ngn, usd });
+            localStorage.setItem('marketHubCart', JSON.stringify(cartItems));
+            updateCartUI();
         }
 
-        function closeModal() {
-            const modal = document.getElementById('authModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => { modal.classList.remove('flex'); modal.classList.add('hidden'); }, 300);
+        function updateCartUI() {
+            const c = cartItems.length;
+            document.getElementById('cartCountBadge').textContent = c;
+            document.getElementById('cartTotalItems').textContent = `${c} Item${c === 1 ? '' : 's'}`;
+            const container = document.getElementById('cartItemsContainer');
+            if (c === 0) { container.innerHTML = 'No selections active.'; return; }
+            container.innerHTML = cartItems.map((item, i) => `
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <div class="flex flex-col">
+                        <span class="font-bold text-slate-900 dark:text-white">${item.name}</span>
+                        <span class="text-[10px] text-blue-500 font-semibold">${item.ngn} / ${item.usd}</span>
+                    </div>
+                    <button onclick="removeFromCart(${i})" class="text-[10px] text-red-500 bg-red-500/10 px-2 py-1 rounded-lg">Remove</button>
+                </div>
+            `).join('');
         }
 
-        function toggleAuthForm(mode) {
-            activeAuthMode = mode;
-            const tabIn = document.getElementById('tabSignIn');
-            const tabUp = document.getElementById('tabSignUp');
-            const nameField = document.getElementById('additionalRegisterFields');
-            const submitBtn = document.getElementById('authSubmitBtn');
-            const title = document.getElementById('authModalTitle');
-            const desc = document.getElementById('authModalDesc');
-            const passInput = document.getElementById('authPassword');
+        function removeFromCart(i) {
+            cartItems.splice(i, 1);
+            localStorage.setItem('marketHubCart', JSON.stringify(cartItems));
+            updateCartUI();
+        }
 
-            if(mode === 'signin') {
-                tabIn.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-blue-400 border-b-2 border-blue-400 text-center cursor-pointer";
-                tabUp.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent text-center hover:text-white cursor-pointer";
-                nameField.classList.add('hidden');
-                title.textContent = "Sign In Required";
-                desc.textContent = "Please sign in to finish your order and send it to WhatsApp.";
-                submitBtn.textContent = "Sign In & Continue";
-                passInput.setAttribute('autocomplete', 'current-password');
+        function triggerCheckoutProcessing() {
+            if (cartItems.length === 0) { alert("Cart selection layout is empty!"); return; }
+            if (!activeUserSession) {
+                toggleCartDrawer(); openAuthModal('login');
+                document.getElementById('authModalAlert').textContent = "Authentication Required to lock down transactions.";
+                document.getElementById('authModalAlert').classList.remove('hidden');
             } else {
-                tabUp.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-blue-400 border-b-2 border-blue-400 text-center cursor-pointer";
-                tabIn.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-slate-500 border-b-2 border-transparent text-center hover:text-white cursor-pointer";
-                nameField.classList.remove('hidden');
-                title.textContent = "Create Account";
-                desc.textContent = "Fill in your details to quickly manage your orders and track history.";
-                submitBtn.textContent = "Create Account & Continue";
-                passInput.setAttribute('autocomplete', 'new-password');
+                alert(`Redirecting ${activeUserSession} securely to processing pipeline routers...`);
             }
         }
+
+        function openAuthModal(mode = 'login') {
+            currentAuthMode = mode;
+            document.getElementById('authModalOverlay').classList.remove('hidden');
+            document.getElementById('authNameFieldContainer').style.display = mode === 'login' ? 'none' : 'block';
+            document.getElementById('authModalTitle').textContent = mode === 'login' ? 'Welcome Back' : 'Create Account';
+            document.getElementById('authSubmitButtonText').textContent = mode === 'login' ? 'Sign Into Account' : 'Register Profile';
+        }
+
+        document.getElementById('authModalOverlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('authModalOverlay')) closeAuthModal();
+        });
+
+        function closeAuthModal() { document.getElementById('authModalOverlay').classList.add('hidden'); }
+        function toggleAuthMode() { openAuthModal(currentAuthMode === 'login' ? 'signup' : 'login'); }
+        function toggleSettingsDropdown(e) { e.stopPropagation(); document.getElementById('settingsDropdownMenu').classList.toggle('hidden'); }
 
         function handleAuthSubmission(e) {
             e.preventDefault();
-            isUserAuthenticated = true;
-            
-            const email = document.getElementById('authEmail').value;
-            document.getElementById('accountStateDisplay').textContent = email;
-            document.getElementById('accountStateDisplay').className = "text-xs text-emerald-400 font-mono font-semibold tracking-wide mt-1";
-            
-            closeModal();
-            executeOrderWhatsAppRouting();
+            activeUserSession = currentAuthMode === 'login' ? document.getElementById('authEmailInput').value.split('@')[0] : document.getElementById('authFullNameInput').value;
+            localStorage.setItem('marketHubSession', activeUserSession);
+            renderSessionUI(); closeAuthModal();
         }
 
-        function initiateCheckout() {
-            if(shoppingCart.length === 0) {
-                alert("Your cart is empty. Please add items to your cart first.");
-                return;
-            }
-            if(!isUserAuthenticated) {
-                toggleCartDrawer(false);
-                openAuthModal();
-            } else {
-                executeOrderWhatsAppRouting();
-            }
+        function renderSessionUI() {
+            const hasSess = !!activeUserSession;
+            document.getElementById('authNavActions').classList.toggle('hidden', hasSess);
+            document.getElementById('userSessionProfile').classList.toggle('hidden', !hasSess);
+            if (hasSess) document.getElementById('sessionNameDisplay').textContent = activeUserSession;
         }
 
-        function executeOrderWhatsAppRouting() {
-            let listString = "";
-            let totalN = 0;
-            
-            shoppingCart.forEach((item, idx) => {
-                listString += `${idx + 1}. ${item.title} (₦${item.priceNaira.toLocaleString()})\n`;
-                totalN += item.priceNaira;
-            });
+        function handleLogout() { activeUserSession = null; localStorage.removeItem('marketHubSession'); renderSessionUI(); }
 
-            const checkoutText = `Hello MarketHub, I want to buy these items from my cart:\n\n` +
-                                 `${listString}\n` +
-                                 `💰 Total Bill: ₦${totalN.toLocaleString()}\n\n` +
-                                 `Please process my order payment!`;
-
-            window.open(`https://wa.me/2349069336658?text=${encodeURIComponent(checkoutText)}`, '_blank');
-            
-            shoppingCart = [];
-            updateCartInterface();
-            toggleCartDrawer(false);
+        function handleShopOnboarding(e) {
+            e.preventDefault();
+            const details = { name: document.getElementById('shopNameInput').value };
+            localStorage.setItem('marketHubRegisteredShop', JSON.stringify(details));
+            renderStorefrontHubUI();
         }
 
-        /* ☀️ INTERFACE MOOD CONTROLLER */
-        function toggleLightDarkMode() {
-            const body = document.body;
-            const bubble = document.getElementById('themeIndicatorBubble');
-            const moonIcon = document.getElementById('moonIconSvg');
-            const sunIcon = document.getElementById('sunIconSvg');
-            
-            if (currentTheme === "dark") {
-                body.classList.add('light-mode');
-                bubble.style.transform = "translateX(36px)";
-                moonIcon.setAttribute('class', 'w-4 h-4 text-slate-400 theme-icon-dim');
-                sunIcon.setAttribute('class', 'w-4 h-4 text-blue-600 theme-icon-active');
-                currentTheme = "light";
-            } else {
-                body.classList.remove('light-mode');
-                bubble.style.transform = "translateX(0px)";
-                moonIcon.setAttribute('class', 'w-4 h-4 text-blue-400 theme-icon-active');
-                sunIcon.setAttribute('class', 'w-4 h-4 text-slate-600 theme-icon-dim');
-                currentTheme = "dark";
-            }
-            filterCategory(null, 'all');
+        function renderStorefrontHubUI() {
+            const cached = localStorage.getItem('marketHubRegisteredShop');
+            document.getElementById('shopRegistrationFormCard').classList.toggle('hidden', !!cached);
+            document.getElementById('shopDashboardPanelCard').classList.toggle('hidden', !cached);
+            if (cached) document.getElementById('dashShopNameDisplay').textContent = JSON.parse(cached).name;
         }
 
-        function generateListingSubmission(event) {
-            event.preventDefault();
-            const name = document.getElementById('sellerItemName').value;
-            const price = document.getElementById('sellerItemPrice').value;
-            const currency = document.getElementById('sellerCurrency').value;
-            const brand = document.getElementById('sellerBrandName').value;
-            const desc = document.getElementById('sellerItemDesc').value;
-            
-            const currencySymbol = currency === "USD" ? "$" : "₦";
-            const messageText = `Hello, I want to sell a new item on MarketHub:\n\n` +
-                                `📦 Item: ${name}\n` +
-                                `💰 Price: ${currencySymbol}${Number(price).toLocaleString()}\n` +
-                                `🏪 Brand/Shop: ${brand}\n` +
-                                `📝 Description: ${desc}`;
-                                
-            window.open(`https://wa.me/2349069336658?text=${encodeURIComponent(messageText)}`, '_blank');
-        }
+        function handleUnlinkStorefront() { localStorage.removeItem('marketHubRegisteredShop'); renderStorefrontHubUI(); }
 
-        /* 📧 FAIL-PROOF EMAIL PIPELINE BACKEND */
-        function launchEmailSupportPipeline() {
-            const trackingSubject = encodeURIComponent("MarketHub Platform Support Ticket");
-            const trackingBody = encodeURIComponent("Describe the problem you are facing here so our support team can fix it instantly:\n\n");
-            
-            // Primary native mail protocol string
-            const directMailtoUrl = `mailto:goodiecodes@gmail.com?subject=${trackingSubject}&body=${trackingBody}`;
-            
-            // Backup web-mail route protocol if default client isn't available
-            const browserGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=goodiecodes@gmail.com&su=MarketHub+Platform+Support+Ticket`;
-            
-            const windowCheckPointer = window.open(directMailtoUrl, '_self');
-            
-            // If browser prevents layout changes or fails to trigger within 500ms, seamlessly shift to browser Gmail tab
-            setTimeout(() => {
-                if (!document.hasFocus()) return; 
-                window.open(browserGmailUrl, '_blank');
-            }, 500);
-        }
+        document.addEventListener('click', () => document.getElementById('settingsDropdownMenu').classList.add('hidden'));
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('marketHubTheme') === 'light') toggleTheme();
+            activeUserSession = localStorage.getItem('marketHubSession'); renderSessionUI();
+            const savedCart = localStorage.getItem('marketHubCart'); if (savedCart) { cartItems = JSON.parse(savedCart); updateCartUI(); }
+            renderStorefrontHubUI(); filterCatalog();
+        });
     </script>
 </body>
 </html>
